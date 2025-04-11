@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MovieLand</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
@@ -14,7 +15,7 @@
             <div class="logo">
                 <a href="index.html">
                     <img src="/images/logo.png" alt="MovieLand">
-                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;">MovieLand</span>
+                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;color: #FFe5ec;">MovieLand</span>
                 </a>
             </div>
             <div class="search-bar">
@@ -38,8 +39,12 @@
     </header>
 
     <main>
-        <!-- Banner/Slider section -->
+        <!-- Phần Banner/Slider -->
         <section class="hero-banner">
+            <div class="banner-image-container">
+                <img class="banner-image" src="/images/1.jpg" alt="Movie Banner">
+                <div class="overlay"></div>
+            </div>
             <div class="banner-content">
                 <h1>Niệm Vô Song</h1>
                 <div class="movie-tags">
@@ -58,157 +63,56 @@
             </div>
             <div class="slider-navigation">
                 <div class="slider-dots">
-                    <!-- Thumbnail images would go here -->
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                    <span class="dot active" 
+                        data-bg="/images/1.jpg" 
+                        data-title="Niệm Vô Song" 
+                        data-description="Niệm Vô Song là câu chuyện tình cảm động lòng người giữa thần nữ Vô Song và Tộc trưởng Hộ tộc Nguyên Trọng. Sau khi thành vật Thần Thú của thần giới rơi xuống nhân gian..."
+                        data-tags="Chính Kịch,Cổ Trang,Tình Cảm,Tâm Lý">
+                        <img src="/images/1.jpg" alt="Niệm Vô Song">
+                    </span>
+                    
+                    <span class="dot" 
+                        data-bg="/images/2.jpg" 
+                        data-title="Daredevil: Tái Xuất" 
+                        data-description="Luật sư mù Matt Murdock, với những giác quan siêu việt, không chỉ bảo vệ công lý qua công việc tại văn phòng luật nhộn nhịp của mình mà còn chiến đấu trong bóng tối. Trong khi đó, cựu trùm ..."
+                        data-tags="Chính Kịch,Hình Sự,Hành Động">
+                        <img src="/images/2.jpg" alt="Daredevil: Tái Xuất">
+                    </span>
+                    
+                    <span class="dot" 
+                        data-bg="/images/3.jpg" 
+                        data-title="Nghề Siêu Khó Nói" 
+                        data-description="Dan-bi vốn mơ ước trở thành một tác giả truyện thiếu nhi, nhưng trớ trêu thay, cô lại khởi đầu sự nghiệp tại Đội Bảo vệ Thanh thiếu niên, nơi chuyên kiểm duyệt nội dung khiêu dâm bất hợp pháp. Một ngày nọ ..."
+                        data-tags="Hài hước,Tình cảm, Tâm lý">
+                        <img src="/images/3.jpg" alt="Nghề Siêu Khó Nói">
+                    </span>
+                    
+                    <span class="dot" 
+                        data-bg="/images/6.png" 
+                        data-title="Mật Vụ Phụ Hồ" 
+                        data-description="Levon Cade - cựu biệt kích tinh nhuệ thuộc lực lượng Thủy quân Lục chiến Hoàng gia Anh. Sau khi nghỉ hưu, anh sống cuộc đời yên bình là một công nhân xây dựng tại Chicago (Mỹ)...."
+                        data-tags="Hành Động,Gay Cấn,Hình Sự">
+                        <img src="/images/6.png" alt="Cuộc Chiến Vương Quyền">
+                    </span>
+                    
+                    <span class="dot" 
+                        data-bg="/images/4.jpg" 
+                        data-title="Khi cuộc đời cho bạn quả quýt" 
+                        data-description="Ở Jeju, câu chuyện về một cô nàng nhiệt huyết và chàng trai kiên cường trên đảo nảy nở thành câu chuyện trọn đời đầy thăng trầm, minh chứng tình yêu vẫn trường tồn theo thời gian.."
+                        data-tags="Chính kịch,Tình cảm,Tâm lý">
+                        <img src="/images/4.jpg" alt="Khi cuộc đời cho bạn quả quýt">
+                    </span>
                 </div>
-                <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
             </div>
         </section>
 
-        <!-- Category Section -->
+        <!-- Phần Danh Mục -->
         <section class="category-section">
-            <h2>Bạn đang quan tâm gì ?</h2>
+            <h2 style="font-size: 35px;">Bạn đang quan tâm gì ?</h2>
             <div class="category-grid">
-                <a href="#" class="category-card"></a>
-                <a href="#" class="category-card">Viễn Tưởng</a>
-                <a href="#" class="category-card">Bí Ẩn</a>
-                <a href="#" class="category-card">Tâm Lý</a>
-                <a href="#" class="category-card">Âm Nhạc</a>
-                <a href="#" class="category-card">Hài Hước</a>
-                
-                <a href="#" class="category-card">Khoa Học</a>
-                <a href="#" class="category-card">Kinh Điển</a>
-                <a href="#" class="category-card">Cổ Trang</a>
-                <a href="#" class="category-card">Kinh Dị</a>
-                <a href="#" class="category-card">Phim 18+</a>
-                <a href="#" class="category-card">Thể Thao</a>
-                
-                <a href="#" class="category-card">Gia Đình</a>
-                <a href="#" class="category-card">Hình Sự</a>
-                <a href="#" class="category-card">Thần Thoại</a>
-                <a href="#" class="category-card">Chiến Tranh</a>
-                <a href="#" class="category-card">Tài Liệu</a>
-                <a href="#" class="category-card">Tình Cảm</a>
-                
-                <a href="#" class="category-card">Phiêu Lưu</a>
-                <a href="#" class="category-card">Học Đường</a>
-                <a href="#" class="category-card">Võ Thuật</a>
-                <a href="#" class="category-card">Chính Kịch</a>
             </div>
         </section>
-
-        <!-- All Videos Section -->
-        <section class="videos-section">
-            <h2>All Videos</h2>
-            <div class="movie-grid">
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Khi cuộc đời cho bạn quả quýt</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Tình Cảm, Hài Hước</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Nghề siêu khó</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Hành Động, Hình Sự</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Nghề siêu khó nói</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Hài Hước</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Ngoài vòng pháp luật 2</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Hành Động, Hình Sự</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Niệm vô song</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Chính Kịch, Cổ Trang</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Second row of movies -->
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Chứng ta của sau này</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Tình Cảm, Tâm Lý</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Bí mật đảo thiên đường</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Bí Ẩn, Phiêu Lưu</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Tình yêu và giông tố</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Tình Cảm, Tâm Lý</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Cuộc chiến vương quyền</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Cổ Trang, Viễn Tưởng</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="movie-card">
-                    <div class="movie-poster"></div>
-                    <div class="movie-info">
-                        <h3 class="movie-title">Chiến binh bất tử</h3>
-                        <div class="movie-meta">
-                            <span>2025</span>
-                            <span> • Hành Động, Viễn Tưởng</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div class="movie-detail" id="movieDetail" style="display: none;"></div>
     </main>
 
     <footer>

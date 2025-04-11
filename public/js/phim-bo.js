@@ -15,6 +15,135 @@ document.addEventListener('DOMContentLoaded', function() {
     const countryFilter = document.getElementById('country-filter');
     const yearFilter = document.getElementById('year-filter');
 
+    // Lấy danh sách thể loại và quốc gia từ API để điền vào bộ lọc
+    function fetchFilterOptions() {
+        // Lấy danh sách thể loại
+        fetch('https://phimapi.com/the-loai')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Không thể kết nối đến API thể loại');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xóa các option cũ trừ option đầu tiên (Tất cả)
+                while (categoryFilter.options.length > 1) {
+                    categoryFilter.remove(1);
+                }
+                
+                // Thêm các option mới từ API
+                data.forEach(genre => {
+                    const option = document.createElement('option');
+                    option.value = genre.slug;
+                    option.textContent = genre.name;
+                    categoryFilter.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải danh sách thể loại:', error);
+                // Sử dụng dữ liệu mẫu nếu không lấy được từ API
+                const sampleGenres = [
+                    { name: "Hành Động", slug: "hanh-dong" },
+                    { name: "Tình Cảm", slug: "tinh-cam" },
+                    { name: "Hài Hước", slug: "hai-huoc" },
+                    { name: "Cổ Trang", slug: "co-trang" },
+                    { name: "Viễn Tưởng", slug: "vien-tuong" },
+                    { name: "Kinh Dị", slug: "kinh-di" },
+                    { name: "Hoạt Hình", slug: "hoat-hinh" },
+                    { name: "Võ Thuật", slug: "vo-thuat" },
+                    { name: "Phiêu Lưu", slug: "phieu-luu" },
+                    { name: "Tâm Lý", slug: "tam-ly" },
+                    { name: "Bí Ẩn", slug: "bi-an" },
+                    { name: "Chiến Tranh", slug: "chien-tranh" },
+                    { name: "Hình Sự", slug: "hinh-su" },
+                    { name: "Âm Nhạc", slug: "am-nhac" },
+                    { name: "Thể Thao", slug: "the-thao" }
+                ];
+                
+                // Xóa các option cũ trừ option đầu tiên (Tất cả)
+                while (categoryFilter.options.length > 1) {
+                    categoryFilter.remove(1);
+                }
+                
+                // Thêm các option từ dữ liệu mẫu
+                sampleGenres.forEach(genre => {
+                    const option = document.createElement('option');
+                    option.value = genre.slug;
+                    option.textContent = genre.name;
+                    categoryFilter.appendChild(option);
+                });
+            });
+        
+        // Lấy danh sách quốc gia
+        fetch('https://phimapi.com/quoc-gia')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Không thể kết nối đến API quốc gia');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Sắp xếp danh sách, đưa "quốc gia khác" xuống cuối
+                const sortedData = [...data];
+                const otherCountryIndex = sortedData.findIndex(country => country.name === "Quốc Gia Khác");
+                
+                if (otherCountryIndex !== -1) {
+                    const otherCountry = sortedData.splice(otherCountryIndex, 1)[0];
+                    sortedData.push(otherCountry);
+                }
+                
+                // Xóa các option cũ trừ option đầu tiên (Tất cả)
+                while (countryFilter.options.length > 1) {
+                    countryFilter.remove(1);
+                }
+                
+                // Thêm các option mới từ API
+                sortedData.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.slug;
+                    option.textContent = country.name;
+                    countryFilter.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải danh sách quốc gia:', error);
+                
+                // Dữ liệu mẫu cho quốc gia
+                const sampleCountries = [
+                    { name: "Việt Nam", slug: "viet-nam" },
+                    { name: "Trung Quốc", slug: "trung-quoc" },
+                    { name: "Hàn Quốc", slug: "han-quoc" },
+                    { name: "Nhật Bản", slug: "nhat-ban" },
+                    { name: "Thái Lan", slug: "thai-lan" },
+                    { name: "Mỹ", slug: "my" },
+                    { name: "Anh", slug: "anh" },
+                    { name: "Pháp", slug: "phap" },
+                    { name: "Ấn Độ", slug: "an-do" },
+                    { name: "Quốc Gia Khác", slug: "quoc-gia-khac" }
+                ];
+                
+                // Đảm bảo mẫu cũng có "Quốc Gia Khác" ở cuối nếu cần
+                const sampleOtherCountryIndex = sampleCountries.findIndex(country => country.name === "Quốc Gia Khác");
+                if (sampleOtherCountryIndex !== -1) {
+                    const otherCountry = sampleCountries.splice(sampleOtherCountryIndex, 1)[0];
+                    sampleCountries.push(otherCountry);
+                }
+                
+                // Xóa các option cũ trừ option đầu tiên (Tất cả)
+                while (countryFilter.options.length > 1) {
+                    countryFilter.remove(1);
+                }
+                
+                // Thêm các option từ dữ liệu mẫu
+                sampleCountries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.slug;
+                    option.textContent = country.name;
+                    countryFilter.appendChild(option);
+                });
+            });
+    }
+
     // Thêm sự kiện cho nút phân trang
     prevPageBtn.addEventListener('click', () => {
         if (currentPage > 1) {
@@ -357,6 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Khởi chạy khi trang được tải
     try {
+        // Tải các tùy chọn cho bộ lọc
+        fetchFilterOptions();
+        
         // Thử gọi API thực
         fetchMovies();
         
