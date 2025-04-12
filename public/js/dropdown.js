@@ -161,9 +161,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     const link = document.createElement('a');
                     link.className = 'dropdown-link';
                     
-                    // Thay đổi href để trỏ tới trang the-loai.html với tham số slug và name
+                    // Thay đổi href để trỏ tới trang tương ứng với tham số slug và name
                     if (urlPrefix === 'the-loai') {
                         link.href = `the-loai.html?slug=${item.slug}&name=${encodeURIComponent(item.name)}`;
+                    } else if (urlPrefix === 'quoc-gia') {
+                        link.href = `quoc-gia.html?slug=${item.slug}&name=${encodeURIComponent(item.name)}`;
                     } else {
                         link.href = `#${item.slug}`;
                     }
@@ -173,8 +175,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Thêm sự kiện click
                     link.addEventListener('click', function(e) {
-                        // Chỉ ngăn chặn hành vi mặc định nếu không phải liên kết thể loại
-                        if (urlPrefix !== 'the-loai') {
+                        // Chỉ ngăn chặn hành vi mặc định nếu không phải liên kết thể loại hoặc quốc gia
+                        if (urlPrefix !== 'the-loai' && urlPrefix !== 'quoc-gia') {
                             e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
                             
                             // Cập nhật tiêu đề phần phim
@@ -192,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             // Lấy và hiển thị danh sách phim theo quốc gia
                             fetchMoviesByCountry(item.slug, item.name);
                         }
-                        // Đối với thể loại, để liên kết hoạt động bình thường và chuyển hướng đến trang the-loai.html
+                        // Đối với thể loại và quốc gia, để liên kết hoạt động bình thường và chuyển hướng đến trang tương ứng
                     });
                     
                     column.appendChild(link);

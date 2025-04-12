@@ -32,8 +32,8 @@
                     <a href="#" class="dropdown-toggle">Quốc Gia <i class="fas fa-caret-down"></i></a>
                 </div>
             </div>
-            <div class="login-button">
-                <button>Đăng Nhập</button>
+            <div class="user-actions" style="color: white;">
+                <a href="#" id="login-btn" onclick="showLoginForm(); return false;"><i class="fas fa-user"></i> Đăng nhập</a>
             </div>
         </div>
     </header>
@@ -42,7 +42,7 @@
         <!-- Tiêu đề trang -->
         <section class="page-title" style="margin-top: 60px;">
             <div class="container">
-                <h1 id="genre-title">Phim Theo Thể Loại</h1>
+                <h1 id="genre-title"> Phim Theo Thể Loại</h1>
                 <p id="genre-description">Danh sách phim theo thể loại, cập nhật mới nhất</p>
             </div>
         </section>
@@ -131,5 +131,6 @@
 
     <script src="/public/js/dropdown.js"></script>
     <script src="/public/js/the-loai.js"></script>
+    <script src="/public/js/auth.js"></script>
 </body>
 </html> 

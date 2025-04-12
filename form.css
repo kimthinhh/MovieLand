@@ -1,0 +1,294 @@
+/* Form đăng nhập và đăng ký */
+.auth-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.auth-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.auth-form {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s;
+}
+
+.auth-container.active .auth-form {
+    transform: translateY(0);
+}
+
+.auth-form h2 {
+    text-align: center;
+    color: #ff3e79;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.auth-form .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.auth-form .close-btn:hover {
+    color: #ff3e79;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #ff3e79;
+    outline: none;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff3e79;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-btn:hover {
+    background-color: #e62e6b;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.auth-links a {
+    color: #ff3e79;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.auth-links a:hover {
+    color: #e62e6b;
+    text-decoration: underline;
+}
+
+.auth-separator {
+    margin: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+.auth-separator::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.auth-separator span {
+    position: relative;
+    background-color: #fff;
+    padding: 0 15px;
+    color: #777;
+    font-size: 14px;
+}
+
+.social-login {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+    padding: 10px 0;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.social-btn:hover {
+    opacity: 0.9;
+}
+
+.social-btn i {
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+.fb-btn {
+    background-color: #3b5998;
+}
+
+.google-btn {
+    background-color: #dd4b39;
+}
+
+.form-toggle {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.form-toggle button {
+    background: none;
+    border: none;
+    color: #ff3e79;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+}
+
+.form-toggle button:hover {
+    text-decoration: underline;
+}
+
+.auth-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none;
+}
+
+.auth-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.auth-message.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+/* Nút đăng nhập và đăng ký trên header */
+.user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.user-actions a {
+    color: #fff;
+    margin-left: 15px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.user-actions a:hover {
+    color: #ffcad4;
+}
+
+.user-actions a i {
+    margin-right: 5px;
+}
+
+.user-dropdown {
+    position: relative;
+    margin-left: 15px;
+}
+
+.user-dropdown .user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #ff3e79;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.user-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    margin-top: 10px;
+    z-index: 100;
+    display: none;
+}
+
+.user-menu.active {
+    display: block;
+}
+
+.user-menu-item {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.user-menu-item:hover {
+    background-color: #f9f9f9;
+    color: #ff3e79;
+}
+
+.user-menu-item i {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+} 

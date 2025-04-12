@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentPage > 1) {
             currentPage--;
             fetchMovies();
+            // Cuộn lên đầu trang sau khi chuyển trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
@@ -156,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentPage < totalPages) {
             currentPage++;
             fetchMovies();
+            // Cuộn lên đầu trang sau khi chuyển trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
@@ -282,14 +286,11 @@ document.addEventListener('DOMContentLoaded', function() {
         moviesContainer.innerHTML = moviesHTML;
         
         // Thêm sự kiện click cho từng phim
-        const movieCards = document.querySelectorAll('.movie-card');
-        movieCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const movieId = card.getAttribute('data-id');
-                const movieTitle = card.querySelector('.movie-title').textContent;
-                alert(`Bạn đã chọn phim: ${movieTitle}`);
-                // Trong thực tế, có thể chuyển hướng đến trang chi tiết phim
-                // window.location.href = `movie-detail.html?id=${movieId}`;
+        document.querySelectorAll('.movie-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const movieId = this.getAttribute('data-id');
+                // Chuyển hướng đến trang chi tiết phim
+                window.location.href = `xem-phim.html?id=${movieId}`;
             });
         });
     }
@@ -448,12 +449,12 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPages = 193;  // Số trang thực tế từ API
         nextPageBtn.disabled = currentPage >= totalPages;
         
-        // Thêm sự kiện click cho từng phim
-        const movieCards = document.querySelectorAll('.movie-card');
-        movieCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const movieTitle = card.querySelector('.movie-title').textContent;
-                alert(`Bạn đã chọn phim: ${movieTitle}`);
+        // Thêm sự kiện click cho từng phim mẫu
+        document.querySelectorAll('.movie-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const movieId = this.getAttribute('data-id');
+                // Chuyển hướng đến trang chi tiết phim
+                window.location.href = `xem-phim.html?id=${movieId}`;
             });
         });
     }

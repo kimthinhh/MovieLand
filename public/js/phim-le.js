@@ -149,6 +149,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentPage > 1) {
             currentPage--;
             fetchMovies();
+            // Cuộn lên đầu trang sau khi chuyển trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
@@ -156,6 +158,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentPage < totalPages) {
             currentPage++;
             fetchMovies();
+            // Cuộn lên đầu trang sau khi chuyển trang
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     });
 
@@ -233,14 +237,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Hiển thị danh sách phim
     function displayMovies(data) {
-        // Kiểm tra xem có dữ liệu phim không
+        // Kiểm tra nếu không có dữ liệu
         if (!data || !data.data || !data.data.items || data.data.items.length === 0) {
-            moviesContainer.innerHTML = `
-                <div class="no-results">
-                    <i class="fas fa-film"></i>
-                    <p>Không tìm thấy phim phù hợp</p>
-                </div>
-            `;
+            moviesContainer.innerHTML = '<div class="no-results"><i class="fas fa-film"></i><p>Không tìm thấy phim nào phù hợp với bộ lọc.</p></div>';
             return;
         }
 
@@ -260,11 +259,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 movie.country.map(c => c.name).join(', ') : 
                 '';
             
+            // Tạo chuỗi thời lượng phim
+            const duration = movie.time ? movie.time : (movie.runtime ? `${movie.runtime} phút` : '90 phút');
+            
             moviesHTML += `
                 <div class="movie-card" data-id="${movie._id}">
                     <div class="movie-poster" style="background-image: url('${posterUrl}')">
                         <span class="movie-quality">${movie.quality || 'HD'}</span>
                         <span class="movie-episode">${movie.episode_current || 'Full'}</span>
+                        <span class="movie-duration">${duration}</span>
                     </div>
                     <div class="movie-info">
                         <h3 class="movie-title">${movie.name}</h3>
@@ -287,9 +290,9 @@ document.addEventListener('DOMContentLoaded', function() {
             card.addEventListener('click', () => {
                 const movieId = card.getAttribute('data-id');
                 const movieTitle = card.querySelector('.movie-title').textContent;
-                alert(`Bạn đã chọn phim: ${movieTitle}`);
-                // Trong thực tế, có thể chuyển hướng đến trang chi tiết phim
-                // window.location.href = `movie-detail.html?id=${movieId}`;
+                
+                // Chuyển hướng đến trang chi tiết phim
+                window.location.href = `xem-phim.html?id=${movieId}`;
             });
         });
     }
@@ -343,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 year: 2025,
                 quality: "FHD",
                 episode_current: "Hoàn Tất (56/56)",
+                time: "120 phút",
                 category: [
                     { name: "Chính Kịch" },
                     { name: "Tình Cảm" },
@@ -358,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 year: 2025,
                 quality: "FHD",
                 episode_current: "Tập 4",
+                time: "95 phút",
                 category: [
                     { name: "Hành Động" },
                     { name: "Bí Ẩn" }
@@ -372,6 +377,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 year: 2025,
                 quality: "FHD",
                 episode_current: "Tập 8",
+                time: "110 phút",
                 category: [
                     { name: "Chính Kịch" },
                     { name: "Tình Cảm" },
@@ -387,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 year: 2025,
                 quality: "FHD",
                 episode_current: "Tập 28",
+                time: "105 phút",
                 category: [
                     { name: "Chính Kịch" },
                     { name: "Tình Cảm" },
@@ -402,6 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 year: 2025,
                 quality: "FHD",
                 episode_current: "Hoàn Tất (24/24)",
+                time: "135 phút",
                 category: [
                     { name: "Chính Kịch" },
                     { name: "Bí Ẩn" }
@@ -429,6 +437,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="movie-poster" style="background-color: #555; background-position: center;">
                         <span class="movie-quality">${movie.quality || 'HD'}</span>
                         <span class="movie-episode">${movie.episode_current || 'Full'}</span>
+                        <span class="movie-duration">${movie.time || '90 phút'}</span>
                     </div>
                     <div class="movie-info">
                         <h3 class="movie-title">${movie.name}</h3>
@@ -454,8 +463,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const movieCards = document.querySelectorAll('.movie-card');
         movieCards.forEach(card => {
             card.addEventListener('click', () => {
+                const movieId = card.getAttribute('data-id');
                 const movieTitle = card.querySelector('.movie-title').textContent;
-                alert(`Bạn đã chọn phim: ${movieTitle}`);
+                
+                // Chuyển hướng đến trang chi tiết phim
+                window.location.href = `xem-phim.html?id=${movieId}`;
             });
         });
     }
