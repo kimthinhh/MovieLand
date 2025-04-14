@@ -6,6 +6,7 @@
     <title>Chi Tiết Phim - MovieLand</title>
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <style>
@@ -75,6 +76,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi tap trên mobile */
         }
         
         .watch-now {
@@ -88,6 +90,10 @@
             transform: translateY(-2px);
         }
         
+        .watch-now:active {
+            transform: scale(0.98);
+        }
+        
         .watch-trailer {
             background-color: transparent;
             color: white;
@@ -98,6 +104,10 @@
         .watch-trailer:hover {
             background-color: rgba(225, 124, 151, 0.1);
             transform: translateY(-2px);
+        }
+        
+        .watch-trailer:active {
+            transform: scale(0.98);
         }
         
         .movie-info-table {
@@ -180,12 +190,17 @@
             font-weight: 600;
             color: #333;
             border: 1px solid #f1d1df;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi tap trên mobile */
         }
         
         .episode-item:hover {
             background-color: #e17c97;
             color: white;
             transform: translateY(-2px);
+        }
+        
+        .episode-item:active {
+            transform: scale(0.95);
         }
         
         .episode-item.active {
@@ -201,6 +216,7 @@
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
         
         .server-tab {
@@ -211,10 +227,15 @@
             font-weight: 600;
             color: #555;
             border: 1px solid #ddd;
+            -webkit-tap-highlight-color: transparent; /* Loại bỏ highlight khi tap trên mobile */
         }
         
         .server-tab:hover {
             background-color: #e9e9e9;
+        }
+        
+        .server-tab:active {
+            transform: scale(0.95);
         }
         
         .server-tab.active {
@@ -274,44 +295,24 @@
             font-size: 40px;
             margin-bottom: 15px;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .movie-details-container {
-                grid-template-columns: 1fr;
+
+        /* Thêm style cho touch devices */
+        @media (hover: none) {
+            .episode-item:hover {
+                transform: none;
+                background-color: #faeaf1;
+                color: #333;
             }
             
-            .movie-left-column, 
-            .movie-right-column, 
-            .movie-description,
-            .episodes-container {
-                grid-column: 1;
+            .watch-now:hover, 
+            .watch-trailer:hover {
+                transform: none;
             }
             
-            .episodes-list {
-                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            .server-tab:hover {
+                background-color: #f5f5f5;
             }
-            
         }
-    } .episode-item {
-    display: inline-block;
-    padding: 8px 12px;
-    margin: 5px;
-    background-color: #34495e;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.episode-item:hover {
-    background-color: #2980b9;
-}
-
-.episode-item.active {
-    background-color: #e74c3c;
-} 
     </style>
 </head>
 <body>
@@ -379,8 +380,9 @@
         </div>
     </footer>
 
-    <script src="/js/dropdown.js"></script>
-    <script src="/js/auth.js"></script>
-    <script src="/js/movie-details.js"></script>
+    <script src="js/dropdown.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/movie-details.js"></script>
+    <script src="js/mobile-menu.js"></script>
 </body>
 </html> 
