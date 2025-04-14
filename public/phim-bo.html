@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phim Theo Quốc Gia - MovieLand</title>
+    <title>Phim Bộ - MovieLand</title>
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header style="background-color: #d192ac ;">
-        <div class="header-container">
+    <header style="background-color: #d192ac;">
+       
+        <div class="header-container" >
             <div class="logo">
                 <a href="index.html">
                     <img src="images/logo.png" alt="MovieLand">
-                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;color: #FFe5ec;">MovieLand</span>
+                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;">MovieLand</span>
                 </a>
             </div>
             <div class="search-bar">
@@ -23,7 +24,7 @@
                 <button class="search-button"><i class="fas fa-search"></i></button>
             </div>
             <div class="navigation">
-                <a href="phim-bo.html">Phim Bộ</a>
+                <a href="phim-bo.html" class="active">Phim Bộ</a>
                 <a href="phim-le.html">Phim Lẻ</a>
                 <div class="dropdown">
                     <a href="#" class="dropdown-toggle">Thể Loại <i class="fas fa-caret-down"></i></a>
@@ -42,8 +43,8 @@
         <!-- Tiêu đề trang -->
         <section class="page-title" style="margin-top: 60px;">
             <div class="container">
-                <h1 id="country-title">Phim Theo Quốc Gia</h1>
-                <p id="country-description">Danh sách phim theo quốc gia, cập nhật mới nhất</p>
+                <h1>Phim Bộ</h1>
+                <p>Danh sách phim bộ hay nhất, cập nhật mới nhất</p>
             </div>
         </section>
 
@@ -53,9 +54,23 @@
                 <div class="filter-container">
                     <div class="filter-item">
                         <label>Thể loại:</label>
-                        <select id="genre-filter">
+                        <select id="category-filter">
                             <option value="">Tất cả</option>
-                            <!-- Các tùy chọn thể loại sẽ được thêm bằng JavaScript -->
+                            <option value="hanh-dong">Hành Động</option>
+                            <option value="vien-tuong">Viễn Tưởng</option>
+                            <option value="tinh-cam">Tình Cảm</option>
+                            <option value="chinh-kich">Chính Kịch</option>
+                            <option value="bi-an">Bí Ẩn</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Quốc gia:</label>
+                        <select id="country-filter">
+                            <option value="">Tất cả</option>
+                            <option value="trung-quoc">Trung Quốc</option>
+                            <option value="han-quoc">Hàn Quốc</option>
+                            <option value="my">Mỹ</option>
+                            <option value="viet-nam">Việt Nam</option>
                         </select>
                     </div>
                     <div class="filter-item">
@@ -83,14 +98,6 @@
                             <option value="2007">2007</option>
                             <option value="2006">2006</option>
                             <option value="2005">2005</option>
-                        </select>
-                    </div>
-                    <div class="filter-item">
-                        <label>Sắp xếp:</label>
-                        <select id="sort-filter">
-                            <option value="moi-nhat">Mới nhất</option>
-                            <option value="xem-nhieu">Xem nhiều</option>
-                            <option value="danh-gia">Đánh giá cao</option>
                         </select>
                     </div>
                 </div>
@@ -144,8 +151,8 @@
         </div>
     </footer>
 
-    <script src="public/js/dropdown.js"></script>
-    <script src="public/js/quoc-gia.js"></script>
-    <script src="public/js/auth.js"></script>
+    <script src="js/dropdown.js"></script>
+    <script src="js/phim-bo.js"></script>
+    <script src="js/auth.js"></script>
 </body>
 </html> 

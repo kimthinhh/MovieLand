@@ -263,10 +263,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const duration = movie.time ? movie.time : (movie.runtime ? `${movie.runtime} phút` : '90 phút');
             
             moviesHTML += `
-                <div class="movie-card" data-id="${movie._id}">
+                <div class="movie-card" data-id="${movie._id}" data-slug="${movie.slug}">
                     <div class="movie-poster" style="background-image: url('${posterUrl}')">
                         <span class="movie-quality">${movie.quality || 'HD'}</span>
-                        <span class="movie-episode">${movie.episode_current || 'Full'}</span>
                         <span class="movie-duration">${duration}</span>
                     </div>
                     <div class="movie-info">
@@ -285,14 +284,11 @@ document.addEventListener('DOMContentLoaded', function() {
         moviesContainer.innerHTML = moviesHTML;
         
         // Thêm sự kiện click cho từng phim
-        const movieCards = document.querySelectorAll('.movie-card');
-        movieCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const movieId = card.getAttribute('data-id');
-                const movieTitle = card.querySelector('.movie-title').textContent;
-                
+        document.querySelectorAll('.movie-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const movieSlug = this.getAttribute('data-slug');
                 // Chuyển hướng đến trang chi tiết phim
-                window.location.href = `xem-phim.html?id=${movieId}`;
+                window.location.href = `chi-tiet-phim.html?slug=${movieSlug}`;
             });
         });
     }

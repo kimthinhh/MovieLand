@@ -80,38 +80,404 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mô phỏng chức năng tìm kiếm
     const searchBar = document.querySelector('.search-bar input');
     const searchButton = document.querySelector('.search-button');
+    const searchResults = document.getElementById('searchResults');
+    const searchResultsContainer = document.querySelector('.search-results-container');
     
+    // Danh sách phim lưu trữ
+    let allMovies = [];
+    
+    // Biến để kiểm soát debounce
+    let searchTimeout = null;
+    
+    // Dữ liệu phim mẫu để sử dụng khi không tải được API
+    const sampleMovies = [
+        {
+            id: 1,
+            title: 'Niệm Vô Song',
+            originalTitle: 'Wu Song Ji',
+            year: 2023,
+            poster: '/images/1.jpg',
+            genres: ['Chính Kịch', 'Cổ Trang', 'Tình Cảm'],
+            type: 'series'
+        },
+        {
+            id: 2,
+            title: 'Daredevil: Tái Xuất',
+            originalTitle: 'Daredevil: Born Again',
+            year: 2023,
+            poster: '/images/2.jpg',
+            genres: ['Chính Kịch', 'Hành Động', 'Siêu anh hùng'],
+            type: 'series'
+        },
+        {
+            id: 3,
+            title: 'Nghề Siêu Khó Nói',
+            originalTitle: 'Vigilante Corps',
+            year: 2022,
+            poster: '/images/3.jpg',
+            genres: ['Hài hước', 'Tình cảm', 'Tâm lý'],
+            type: 'single'
+        },
+        {
+            id: 4,
+            title: 'Khi cuộc đời cho bạn quả quýt',
+            originalTitle: 'When Life Gives You Tangerines',
+            year: 2023,
+            poster: '/images/4.jpg',
+            genres: ['Chính kịch', 'Tình cảm', 'Tâm lý'],
+            type: 'series'
+        },
+        {
+            id: 6,
+            title: 'Mật Vụ Phụ Hồ',
+            originalTitle: 'The Bricklayer',
+            year: 2022,
+            poster: '/images/6.png',
+            genres: ['Hành Động', 'Gay Cấn', 'Hình Sự'],
+            type: 'single'
+        }
+    ];
+    
+    // Tải dữ liệu phim từ API
+    async function loadMovies() {
+        try {
+            if (allMovies.length > 0) {
+                return; // Đã tải dữ liệu rồi
+            }
+            
+            // Tải dữ liệu ngầm nếu không phải do tìm kiếm gọi
+            const isSearching = searchResults.style.display === 'block';
+            
+            if (isSearching) {
+                // Hiển thị trạng thái đang tải nếu đang tìm kiếm
+                searchResults.style.display = 'block';
+                setTimeout(() => {
+                    searchResults.classList.add('visible');
+                }, 10);
+                
+                searchResultsContainer.innerHTML = `
+                    <div class="search-loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Đang tải dữ liệu phim...</p>
+                    </div>
+                `;
+            }
+            
+            // Thay vì cố gắng fetch file JS mà có thể không được phép truy cập trực tiếp
+            // Sử dụng dữ liệu mẫu để chắc chắn chức năng tìm kiếm hoạt động
+            console.log('Đang tải dữ liệu phim mẫu...');
+            
+            // Thêm nhiều phim mẫu hơn để chức năng tìm kiếm làm việc tốt hơn
+            const moreMovies = [
+                {
+                    id: 1,
+                    title: 'Niệm Vô Song',
+                    originalTitle: 'Wu Song Ji',
+                    year: 2023,
+                    poster: '/images/1.jpg',
+                    genres: ['Chính Kịch', 'Cổ Trang', 'Tình Cảm'],
+                    type: 'series'
+                },
+                {
+                    id: 2,
+                    title: 'Daredevil: Tái Xuất',
+                    originalTitle: 'Daredevil: Born Again',
+                    year: 2023,
+                    poster: '/images/2.jpg',
+                    genres: ['Chính Kịch', 'Hành Động', 'Siêu anh hùng'],
+                    type: 'series'
+                },
+                {
+                    id: 3,
+                    title: 'Nghề Siêu Khó Nói',
+                    originalTitle: 'Vigilante Corps',
+                    year: 2022,
+                    poster: '/images/3.jpg',
+                    genres: ['Hài hước', 'Tình cảm', 'Tâm lý'],
+                    type: 'single'
+                },
+                {
+                    id: 4,
+                    title: 'Khi cuộc đời cho bạn quả quýt',
+                    originalTitle: 'When Life Gives You Tangerines',
+                    year: 2023,
+                    poster: '/images/4.jpg',
+                    genres: ['Chính kịch', 'Tình cảm', 'Tâm lý'],
+                    type: 'series'
+                },
+                {
+                    id: 6,
+                    title: 'Mật Vụ Phụ Hồ',
+                    originalTitle: 'The Bricklayer',
+                    year: 2022,
+                    poster: '/images/6.png',
+                    genres: ['Hành Động', 'Gay Cấn', 'Hình Sự'],
+                    type: 'single'
+                },
+                {
+                    id: 15,
+                    title: 'Chúng Ta Hãy Kết Hôn Nhé',
+                    originalTitle: 'My Merry Marriage',
+                    year: 2023,
+                    poster: '/images/15.jpg',
+                    genres: ['Tâm lý', 'Tình cảm'],
+                    type: 'series'
+                },
+                {
+                    id: 16,
+                    title: 'Khi Anh Chạy Về Phía Em',
+                    originalTitle: 'When I Fly Towards You',
+                    year: 2022,
+                    poster: '/images/16.jpg',
+                    genres: ['Tình cảm', 'Học đường'],
+                    type: 'series'
+                },
+                {
+                    id: 17,
+                    title: 'Khoảnh Khắc Thanh Xuân',
+                    originalTitle: 'Moment of Youth',
+                    year: 2021,
+                    poster: '/images/17.jpg',
+                    genres: ['Thanh xuân', 'Tình bạn'],
+                    type: 'series'
+                },
+                {
+                    id: 18,
+                    title: 'Khúc Ca Tuổi Trẻ',
+                    originalTitle: 'Youth Melody',
+                    year: 2022,
+                    poster: '/images/18.jpg',
+                    genres: ['Âm nhạc', 'Học đường'],
+                    type: 'series'
+                },
+                {
+                    id: 19,
+                    title: 'Mùa Hè Năm Ấy',
+                    originalTitle: 'Summer of That Year',
+                    year: 2023,
+                    poster: '/images/19.jpg',
+                    genres: ['Tình cảm', 'Thanh xuân'],
+                    type: 'series'
+                },
+                {
+                    id: 7,
+                    title: 'Ma Trận',
+                    originalTitle: 'The Matrix',
+                    year: 1999,
+                    poster: 'https://placehold.co/300x450/ffe5ec/ff3e79?text=Ma%20Tr%E1%BA%ADn',
+                    genres: ['Khoa học', 'Hành động'],
+                    type: 'single'
+                },
+                {
+                    id: 8,
+                    title: 'Kẻ Du Hành',
+                    originalTitle: 'Interstellar',
+                    year: 2014,
+                    poster: 'https://placehold.co/300x450/ffe5ec/ff3e79?text=K%E1%BA%BB%20Du%20H%C3%A0nh',
+                    genres: ['Khoa học', 'Viễn tưởng'],
+                    type: 'single'
+                },
+                {
+                    id: 9,
+                    title: 'Titanic',
+                    originalTitle: 'Titanic',
+                    year: 1997,
+                    poster: 'https://placehold.co/300x450/ffe5ec/ff3e79?text=Titanic',
+                    genres: ['Tình cảm', 'Bi kịch'],
+                    type: 'single'
+                },
+                {
+                    id: 10,
+                    title: 'Biệt Đội Siêu Anh Hùng',
+                    originalTitle: 'The Avengers',
+                    year: 2012,
+                    poster: 'https://placehold.co/300x450/ffe5ec/ff3e79?text=Bi%E1%BB%87t%20%C4%90%E1%BB%99i%20Si%C3%AAu%20Anh%20H%C3%B9ng',
+                    genres: ['Hành động', 'Siêu anh hùng'],
+                    type: 'single'
+                }
+            ];
+            
+            // Sử dụng dữ liệu mẫu cho chức năng tìm kiếm
+            allMovies = moreMovies;
+            
+            // Ẩn kết quả tìm kiếm sau khi tải xong nếu đang tìm kiếm
+            if (isSearching) {
+                searchResults.classList.remove('visible');
+                setTimeout(() => {
+                    searchResults.style.display = 'none';
+                }, 300);
+            }
+            
+        } catch (error) {
+            console.error('Lỗi khi tải dữ liệu phim:', error);
+            // Nếu có lỗi, vẫn sử dụng dữ liệu mẫu
+            allMovies = sampleMovies;
+            
+            if (searchResults.style.display === 'block') {
+                searchResults.classList.remove('visible');
+                setTimeout(() => {
+                    searchResults.style.display = 'none';
+                }, 300);
+            }
+        }
+    }
+    
+    // Tải dữ liệu phim ngay khi trang được tải - đảm bảo tải trước dữ liệu
+    setTimeout(() => {
+        loadMovies();
+    }, 100);
+    
+    // Bắt sự kiện click vào nút tìm kiếm
     if (searchButton && searchBar) {
         searchButton.addEventListener('click', () => {
             performSearch();
         });
         
+        // Bắt sự kiện nhấn Enter trong ô tìm kiếm
         searchBar.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 performSearch();
             }
         });
+        
+        // Bắt sự kiện khi người dùng nhập vào ô tìm kiếm
+        searchBar.addEventListener('input', () => {
+            const searchTerm = searchBar.value.trim();
+            
+            // Nếu ô tìm kiếm trống, ẩn kết quả tìm kiếm
+            if (!searchTerm) {
+                searchResults.classList.remove('visible');
+                setTimeout(() => {
+                    if (!searchBar.value.trim()) {
+                        searchResults.style.display = 'none';
+                    }
+                }, 300); // Delay phù hợp với thời gian transition
+                return;
+            }
+            
+            // Hủy bỏ bất kỳ timeout trước đó
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // Đặt timeout mới để đảm bảo chức năng tìm kiếm không được gọi liên tục
+            searchTimeout = setTimeout(() => {
+                performSearch();
+                searchTimeout = null;
+            }, 500); // Độ trễ 500ms
+        });
+        
+        // Ẩn kết quả tìm kiếm khi click ra ngoài
+        document.addEventListener('click', (e) => {
+            if (!searchBar.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.remove('visible');
+                setTimeout(() => {
+                    searchResults.style.display = 'none';
+                }, 300); // Delay phù hợp với thời gian transition
+            }
+        });
     }
     
-    function performSearch() {
+    // Hàm thực hiện tìm kiếm
+    async function performSearch() {
         const searchTerm = searchBar.value.trim();
-        if (searchTerm) {
-            // Cho mục đích demo, chúng ta chỉ hiển thị thông báo
-            // Trong triển khai thực tế, sẽ chuyển đến trang kết quả tìm kiếm
-            console.log(`Tìm kiếm: ${searchTerm}`);
-            alert(`Bạn đã tìm kiếm: ${searchTerm}`);
+        
+        if (!searchTerm) {
+            searchResults.classList.remove('visible');
+            setTimeout(() => {
+                if (!searchBar.value.trim()) {
+                    searchResults.style.display = 'none';
+                }
+            }, 300); // Delay phù hợp với thời gian transition
+            return;
         }
+        
+        // Hiển thị trạng thái đang tải
+        if (searchResults.style.display !== 'block') {
+            searchResults.style.display = 'block';
+            // Trì hoãn việc thêm class visible để trigger animation
+            setTimeout(() => {
+                searchResults.classList.add('visible');
+            }, 10);
+        }
+        
+        searchResultsContainer.innerHTML = `
+            <div class="search-loading">
+                <i class="fas fa-spinner"></i>
+                <p>Đang tìm kiếm...</p>
+            </div>
+        `;
+        
+        // Độ trễ nhỏ để hiển thị trạng thái đang tải rõ ràng hơn
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Đảm bảo dữ liệu phim đã được tải
+        if (allMovies.length === 0) {
+            await loadMovies();
+        }
+        
+        // Tìm kiếm phim khớp với từ khóa
+        const filteredMovies = allMovies.filter(movie => 
+            (movie.title && movie.title.toLowerCase().includes(searchTerm.toLowerCase())) || 
+            (movie.originalTitle && movie.originalTitle.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (movie.genres && movie.genres.some(genre => genre.toLowerCase().includes(searchTerm.toLowerCase())))
+        );
+        
+        // Kiểm tra xem searchTerm có còn khớp với giá trị hiện tại không
+        // Nếu người dùng đã thay đổi từ khóa tìm kiếm trong quá trình đợi, bỏ qua kết quả này
+        if (searchTerm !== searchBar.value.trim()) {
+            return;
+        }
+        
+        // Giới hạn số lượng kết quả hiển thị
+        const limitedResults = filteredMovies.slice(0, 10);
+        
+        // Chuẩn bị HTML kết quả trước khi cập nhật DOM
+        let resultsHTML = '';
+        
+        if (limitedResults.length > 0) {
+            resultsHTML = limitedResults.map(movie => `
+                <div class="search-movie-item" data-title="${movie.title}" data-type="${movie.type}">
+                    <div class="search-movie-poster">
+                        <img src="${movie.poster || `/images/${movie.id || '1'}.jpg`}" alt="${movie.title}">
+                    </div>
+                    <div class="search-movie-info">
+                        <div class="search-movie-title">${movie.title}</div>
+                        <div class="search-movie-original-title">${movie.originalTitle || ''}</div>
+                        <div class="search-movie-year">${movie.year || '2023'} ${movie.type === 'series' ? '• Phim bộ' : '• Phim lẻ'}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Thêm thông báo nếu có nhiều kết quả hơn giới hạn
+            if (filteredMovies.length > limitedResults.length) {
+                resultsHTML += `
+                    <div class="search-more-results">
+                        <p>Hiển thị ${limitedResults.length} trong số ${filteredMovies.length} kết quả</p>
+                    </div>
+                `;
+            }
+        } else {
+            resultsHTML = `
+                <div class="no-search-results">
+                    <p>Không tìm thấy kết quả nào cho "${searchTerm}"</p>
+                </div>
+            `;
+        }
+        
+        // Cập nhật DOM một lần duy nhất
+        searchResultsContainer.innerHTML = resultsHTML;
+        
+        // Thêm sự kiện click cho mỗi kết quả tìm kiếm
+        document.querySelectorAll('.search-movie-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const movieTitle = this.getAttribute('data-title');
+                const movieType = this.getAttribute('data-type');
+                // Chuyển hướng đến trang chi tiết phim
+                window.location.href = `chi-tiet-phim.html?title=${encodeURIComponent(movieTitle)}&type=${movieType}`;
+            });
+        });
     }
-    
-    // Mô phỏng chức năng nút đăng nhập
-    // const loginButton = document.querySelector('.login-button button');
-    
-    // if (loginButton) {
-    //     loginButton.addEventListener('click', () => {
-    //         // Trong triển khai thực tế, sẽ hiển thị form đăng nhập hoặc chuyển đến trang đăng nhập
-    //         alert('Chức năng đăng nhập sẽ được hiển thị ở đây');
-    //     });
-    // }
     
     // Thêm hiệu ứng hover cho thẻ phim
     const movieCards = document.querySelectorAll('.movie-card');
@@ -141,51 +507,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updateSlider();
         }
     }, 5000); // Chuyển slide sau mỗi 5 giây
-   
-    // // Thêm code để lấy danh sách thể loại cho category-grid
-    // const categoryGrid = document.querySelector('.category-grid');
-    // if (categoryGrid) {
-    //     populateCategoryGrid(categoryGrid);
-    // }
-    
-    // // Hàm để lấy và hiển thị danh sách thể loại trong category-grid
-    // function populateCategoryGrid(gridElement) {
-    //     fetch('https://phimapi.com/the-loai')
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Không thể kết nối đến API');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(data => {
-    //             // Xóa nội dung hiện tại
-    //             gridElement.innerHTML = '';
-                
-    //             // Thêm các thể loại từ API
-    //             data.forEach(genre => {
-    //                 const categoryCard = document.createElement('a');
-    //                 categoryCard.href = `/the-loai/${genre.slug}`;
-    //                 categoryCard.className = 'category-card';
-    //                 categoryCard.textContent = genre.name;
-    //                 gridElement.appendChild(categoryCard);
-    //             });
-    //         })
-    //         .catch(error => {
-    //             console.error('Lỗi khi tải danh sách thể loại cho lưới:', error);
-                
-    //             // Xóa nội dung hiện tại
-    //             gridElement.innerHTML = '';
-                
-    //             // Thêm các thể loại mẫu
-    //             sampleGenres.forEach(genre => {
-    //                 const categoryCard = document.createElement('a');
-    //                 categoryCard.href = `/the-loai/${genre.slug}`;
-    //                 categoryCard.className = 'category-card';
-    //                 categoryCard.textContent = genre.name;
-    //                 gridElement.appendChild(categoryCard);
-    //             });
-    //         });
-    // }
     
     // Thêm event listener cho sự kiện resize
     window.addEventListener('resize', function() {
@@ -201,31 +522,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             header.classList.remove('scrolled');
         }
-    });
-    
-    // Thêm event listener cho từng link
-    const links = document.querySelectorAll('.category-card');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            // Đóng tất cả dropdown trước khi mở dropdown mới
-            document.querySelectorAll('.dropdown').forEach(d => {
-                d.classList.remove('dropdown-active');
-            });
-            
-            // Lấy slug của thể loại
-            const slug = this.getAttribute('data-slug');
-            const name = this.textContent;
-            
-            // Hiển thị phim theo thể loại
-            if (urlPrefix === 'the-loai') {
-                fetchMoviesByGenre(slug, name);
-            } else if (urlPrefix === 'quoc-gia') {
-                fetchMoviesByCountry(slug, name);
-            }
-        });
     });
 });
 

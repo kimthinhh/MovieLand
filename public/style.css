@@ -7,7 +7,7 @@
 }
 @font-face {
     font-family: 'ClarenceTwo';
-    src: url('/font/ClarenceTwo-Regular.ttf') format('truetype');
+    src: url('public/font/ClarenceTwo-Regular.ttf') format('truetype');
   }
 body {
     background-color: #fff5f8;
@@ -1448,6 +1448,8 @@ select, input, button {
     gap: 20px;
     padding: 20px 40px;
     margin-bottom: 30px;
+    grid-auto-flow: dense;
+    width: 100%;
 }
 
 .school-movie-card {
@@ -1541,4 +1543,144 @@ select, input, button {
     .school-movies {
         grid-template-columns: 1fr;
     }
-} 
+}
+
+/* Kiểu dáng cho kết quả tìm kiếm */
+.search-bar {
+    position: relative;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 300px;
+    max-height: 400px;
+    background-color: #ffe5ec;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 5px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ffb3c8 #ffe5ec;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.search-results.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.search-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.search-results::-webkit-scrollbar-track {
+    background: #ffe5ec;
+    border-radius: 10px;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+    background-color: #ffb3c8;
+    border-radius: 10px;
+}
+
+.search-results-container {
+    padding: 10px;
+}
+
+.search-movie-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.search-movie-item:hover {
+    background-color: #ffdbea;
+}
+
+.search-movie-poster {
+    width: 50px;
+    height: 70px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.search-movie-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-movie-info {
+    flex: 1;
+}
+
+.search-movie-title {
+    font-weight: 600;
+    color: #ff3e79;
+    margin-bottom: 3px;
+    font-size: 0.9rem;
+}
+
+.search-movie-original-title {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 3px;
+}
+
+.search-movie-year {
+    font-size: 0.75rem;
+    color: #888;
+}
+
+.no-search-results {
+    padding: 15px;
+    text-align: center;
+    color: #777;
+}
+
+.search-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    flex-direction: column;
+}
+
+.search-loading i {
+    color: #ff6b95;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+@keyframes search-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.search-loading i.fa-spinner {
+    animation: search-spin 1s linear infinite;
+}
+
+.search-more-results {
+    padding: 10px 15px;
+    text-align: center;
+    color: #777;
+    font-size: 0.8rem;
+    border-top: 1px solid #ffdbea;
+    margin-top: 5px;
+}
+
+.search-loading i.fa-spinner {
+    animation: search-spin 1s linear infinite;
+}

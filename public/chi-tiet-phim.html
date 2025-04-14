@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Phim - MovieLand</title>
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .movie-details {
+            margin-top: 80px;
+            padding: 30px 0;
+            background-color: #f9edf2;
+        }
+        
+        .movie-details-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+        }
+        
+        .movie-left-column {
+            grid-column: 1;
+        }
+        
+        .movie-right-column {
+            grid-column: 2;
+        }
+        
+        .movie-poster-large {
+            width: 100%;
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .movie-title-section {
+            margin-bottom: 20px;
+        }
+        
+        .movie-title-large {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #e17c97;
+        }
+        
+        .movie-title-original {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        
+        .watch-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .watch-button {
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .watch-now {
+            background-color: #e17c97;
+            color: white;
+            border: none;
+        }
+        
+        .watch-now:hover {
+            background-color: #d66c87;
+            transform: translateY(-2px);
+        }
+        
+        .watch-trailer {
+            background-color: transparent;
+            color: white;
+            border: 2px solid #e17c97;
+            color: #e17c97;
+        }
+        
+        .watch-trailer:hover {
+            background-color: rgba(225, 124, 151, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .movie-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #faeaf1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .movie-info-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f1d1df;
+        }
+        
+        .movie-info-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            width: 150px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .info-value {
+            color: #111;
+        }
+        
+        .movie-description {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            grid-column: 1 / span 2;
+        }
+        
+        .movie-description h3 {
+            color: #e17c97;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .movie-description p {
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .episodes-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            grid-column: 1 / span 2;
+        }
+        
+        .episodes-container h3 {
+            color: #e17c97;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .episodes-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .episode-item {
+            background-color: #faeaf1;
+            border-radius: 8px;
+            padding: 8px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            color: #333;
+            border: 1px solid #f1d1df;
+        }
+        
+        .episode-item:hover {
+            background-color: #e17c97;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .episode-item.active {
+            background-color: #e17c97;
+            color: white;
+        }
+        
+        .server-selection {
+            margin-bottom: 15px;
+        }
+        
+        .server-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .server-tab {
+            padding: 8px 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .server-tab:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .server-tab.active {
+            background-color: #e17c97;
+            color: white;
+            border-color: #e17c97;
+        }
+        
+        .movie-quality-tag, .movie-episode-tag {
+            position: absolute;
+            top: 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .movie-quality-tag {
+            left: 10px;
+            background-color: #e17c97;
+            color: white;
+        }
+        
+        .movie-episode-tag {
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+        }
+        
+        .loading-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+        
+        .loading-details i {
+            font-size: 40px;
+            color: #e17c97;
+            margin-bottom: 15px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 50px;
+            color: #e17c97;
+        }
+        
+        .error-message i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .movie-details-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .movie-left-column, 
+            .movie-right-column, 
+            .movie-description,
+            .episodes-container {
+                grid-column: 1;
+            }
+            
+            .episodes-list {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+            
+        }
+    } .episode-item {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 5px;
+    background-color: #34495e;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.episode-item:hover {
+    background-color: #2980b9;
+}
+
+.episode-item.active {
+    background-color: #e74c3c;
+} 
+    </style>
+</head>
+<body>
+    <header style="background-color: #d192ac;">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="MovieLand">
+                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;">MovieLand</span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Tìm kiếm phim, diễn viên">
+                <button class="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="navigation">
+                <a href="phim-bo.html">Phim Bộ</a>
+                <a href="phim-le.html">Phim Lẻ</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Thể Loại <i class="fas fa-caret-down"></i></a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Quốc Gia <i class="fas fa-caret-down"></i></a>
+                </div>
+            </div>
+            <div class="user-actions" style="color: white;">
+                <a href="#" id="login-btn" onclick="showLoginForm(); return false;"><i class="fas fa-user"></i> Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="movie-details">
+            <div class="container">
+                <div id="movie-details-container">
+                    <!-- Chi tiết phim sẽ được tải từ API qua JavaScript -->
+                    <div class="loading-details">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải thông tin phim...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="MovieLand">
+                <span>MovieLand</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Về chúng tôi</a>
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <a href="#">Liên hệ</a>
+            </div>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>© 2023 MovieLand. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+
+    <script src="/js/dropdown.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/movie-details.js"></script>
+</body>
+</html> 

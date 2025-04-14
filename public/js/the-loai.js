@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '';
             
             moviesHTML += `
-                <div class="movie-card" data-id="${movie._id || movie.id}">
+                <div class="movie-card" data-id="${movie._id || movie.id}" data-slug="${movie.slug}">
                     <div class="movie-poster" style="background-image: url('${posterUrl}')">
                         <span class="movie-quality">${movie.quality || 'HD'}</span>
                         <span class="movie-episode">${movie.episode_current || 'Full'}</span>
@@ -260,8 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.movie-card').forEach(card => {
             card.addEventListener('click', function() {
                 const movieId = this.getAttribute('data-id');
+                const movieSlug = this.getAttribute('data-slug');
                 // Chuyển hướng đến trang chi tiết phim
-                window.location.href = `xem-phim.html?id=${movieId}`;
+                window.location.href = `chi-tiet-phim.html?slug=${movieSlug}`;
             });
         });
     }
@@ -378,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '';
             
             moviesHTML += `
-                <div class="movie-card" data-id="${movie._id}">
+                <div class="movie-card" data-id="${movie._id}" data-slug="${movie.slug}">
                     <div class="movie-poster" style="background-color: #555; background-position: center;">
                         <span class="movie-quality">${movie.quality || 'HD'}</span>
                         <span class="movie-episode">${movie.episode_current || 'Full'}</span>
@@ -407,8 +408,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.movie-card').forEach(card => {
             card.addEventListener('click', function() {
                 const movieId = this.getAttribute('data-id');
+                const movieSlug = this.getAttribute('data-slug');
                 // Chuyển hướng đến trang chi tiết phim
-                window.location.href = `xem-phim.html?id=${movieId}`;
+                window.location.href = `chi-tiet-phim.html?slug=${movieSlug}`;
             });
         });
     }

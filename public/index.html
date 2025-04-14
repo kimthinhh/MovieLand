@@ -22,6 +22,11 @@
             <div class="search-bar">
                 <input type="text" placeholder="Tìm kiếm phim, diễn viên">
                 <button class="search-button"><i class="fas fa-search"></i></button>
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <div class="search-results-container">
+                        <!-- Kết quả tìm kiếm sẽ hiển thị ở đây -->
+                    </div>
+                </div>
             </div>
             <div class="navigation">
                 <a href="phim-bo.html">Phim Bộ</a>
@@ -111,19 +116,24 @@
         <section class="category-section">
             <h2 style="font-size: 35px;">Bạn đang quan tâm gì ?</h2>
             <div class="category-grid">
-                <a href="the-loai.html?genre=tinh-cam" class="category-card">Tình Cảm</a>
-                <a href="the-loai.html?genre=gia-dinh" class="category-card">Gia Đình</a>
-                <a href="the-loai.html?genre=co-trang" class="category-card">Cổ Trang</a>
-                <a href="the-loai.html?genre=mien-tay" class="category-card">Miền Tây</a>
-                <a href="the-loai.html?genre=tai-lieu" class="category-card">Tài Liệu</a>
-                <a href="the-loai.html?genre=kinh-di" class="category-card">Kinh Dị</a>
-                <a href="the-loai.html?genre=hai-huoc" class="category-card">Hài Hước</a>
-                <a href="the-loai.html?genre=phieu-luu" class="category-card">Phiêu Lưu</a>
-                <a href="the-loai.html?genre=vien-tuong" class="category-card">Viễn Tưởng</a>
-                <a href="the-loai.html?genre=khoa-hoc" class="category-card">Khoa Học</a>
+                <a href="the-loai.html?slug=tinh-cam&name=Tình%20Cảm" class="category-card">Tình Cảm</a>
+                <a href="the-loai.html?slug=gia-dinh&name=Gia%20Đình" class="category-card">Gia Đình</a>
+                <a href="the-loai.html?slug=co-trang&name=Cổ%20Trang" class="category-card">Cổ Trang</a>
+                <a href="the-loai.html?slug=mien-tay&name=Miền%20Tây" class="category-card">Miền Tây</a>
+                <a href="the-loai.html?slug=tai-lieu&name=Tài%20Liệu" class="category-card">Tài Liệu</a>
+                <a href="the-loai.html?slug=kinh-di&name=Kinh%20Dị" class="category-card">Kinh Dị</a>
+                <a href="the-loai.html?slug=hai-huoc&name=Hài%20Hước" class="category-card">Hài Hước</a>
+                <a href="the-loai.html?slug=phieu-luu&name=Phiêu%20Lưu" class="category-card">Phiêu Lưu</a>
+                <a href="the-loai.html?slug=vien-tuong&name=Viễn%20Tưởng" class="category-card">Viễn Tưởng</a>
+                <a href="the-loai.html?slug=khoa-hoc&name=Khoa%20Học" class="category-card">Khoa Học</a>
             </div>
         </section>
-        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">Phim mới cập nhật</h2>
+        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">
+            <a href="#" style="text-decoration: none; color: #ff3e79; display: block; transition: all 0.3s ease;" onmouseover="this.style.color='#d63369'" onmouseout="this.style.color='#ff3e79'">
+                Phim mới cập nhật
+                <i class="fas fa-angle-right" style="font-size: 25px; vertical-align: middle; margin-left: 5px;"></i>
+            </a>
+        </h2>
         
         <!-- Grid phim mới cập nhật -->
         <section class="movie-grid-section">
@@ -135,19 +145,26 @@
                 </div>
             </div>
         </section>
-        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">Thanh xuân vườn trường</h2>
+        <!-- Phim hành động -->
+        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">
+            <a href="the-loai.html?slug=lich-su&name=Lịch%20Sử" style="text-decoration: none; color: #ff3e79; display: block; transition: all 0.3s ease;" onmouseover="this.style.color='#d63369'" onmouseout="this.style.color='#ff3e79'">
+                50 Năm Giải Phóng Miền Nam - Thống Nhất Đất Nước 
+                <i class="fas fa-angle-right" style="font-size: 25px; vertical-align: middle; margin-left: 5px;"></i>
+            </a>
+        </h2>
         <div class="school-movies">
             <!-- Phim 1 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="images/kaka.jpg" alt="Ngày Nắng Xanh Trong" loading="lazy">
+                    <img src="images/20.jpg" alt="Đấu Trường Sinh Tử" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Trời đẹp em sẽ đến</h3>
-                    <div class="school-movie-original-title"></div>
+                    <h3 class="school-movie-title">Mùi Cỏ Cháy</h3>
+                    <div class="school-movie-original-title">The Scent of Burning Grass</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Thanh xuân</span>
-                        <span class="school-movie-category">Tình cảm</span>
+                        <span class="school-movie-category">Chiến tranh</span>
+                        <span class="school-movie-category">Lịch Sử</span>
+                        <span class="school-movie-category">Chính Kịch</span>
                     </div>
                 </div>
             </div>
@@ -155,13 +172,101 @@
             <!-- Phim 2 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Hoa%20Nở%20Giữa%20Đời%20Thường" alt="Hoa Nở Giữa Đời Thường" loading="lazy">
+                    <img src="images/21.jpg" alt="Nhiệm Vụ Bất Khả Thi" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Hoa Nở Giữa Đời Thường</h3>
-                    <div class="school-movie-original-title">Blooming Days</div>
+                    <h3 class="school-movie-title">Hà Nội: Mùa Đông năm 46</h3>
+                    <div class="school-movie-original-title">Hanoi: Winter 1946</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Học đường</span>
+                        <span class="school-movie-category">Chiến tranh</span>
+                        <span class="school-movie-category">Lịch Sử</span>
+                        <span class="school-movie-category">Chính Kịch</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Phim 3 -->
+            <div class="school-movie-card">
+                <div class="school-movie-poster">
+                    <img src="images/22.jpg" alt="Biệt Đội Siêu Anh Hùng" loading="lazy">
+                </div>
+                <div class="school-movie-info">
+                    <h3 class="school-movie-title">Vĩ Tuyến 17 Ngày Và Đêm</h3>
+                    <div class="school-movie-original-title">17th Parallel, Nights and Days</div>
+                    <div class="school-movie-categories">
+                        <span class="school-movie-category">Chiến tranh</span>
+                        <span class="school-movie-category">Lịch Sử</span>
+                        <span class="school-movie-category">Chính Kịch</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Phim 4 -->
+            <div class="school-movie-card">
+                <div class="school-movie-poster">
+                    <img src="images/23.jpg" alt="John Wick" loading="lazy">
+                </div>
+                <div class="school-movie-info">
+                    <h3 class="school-movie-title">Giải Phóng Sài Gòn</h3>
+                    <div class="school-movie-original-title">Liberation of Saigon</div>
+                    <div class="school-movie-categories">
+                        <span class="school-movie-category">Chiến tranh</span>
+                        <span class="school-movie-category">Lịch Sử</span>
+                        <span class="school-movie-category">Chính Kịch</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Phim 5 -->
+            <div class="school-movie-card">
+                <div class="school-movie-poster">
+                    <img src="images/24.jpg" alt="Fast and Furious" loading="lazy">
+                </div>
+                <div class="school-movie-info">
+                    <h3 class="school-movie-title">Bài ca ra trận</h3>
+                    <div class="school-movie-original-title">March to the Front</div>
+                    <div class="school-movie-categories">
+                        <span class="school-movie-category">Chiến tranh</span>
+                        <span class="school-movie-category">Lịch Sử</span>
+                        <span class="school-movie-category">Chính Kịch</span>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">
+            <a href="the-loai.html?slug=gia-dinh&name=Gia%20Đình" style="text-decoration: none; color: #ff3e79; display: block; transition: all 0.3s ease;" onmouseover="this.style.color='#d63369'" onmouseout="this.style.color='#ff3e79'">
+                Đường Về Nhà Là Vào Tym Ta <3
+                <i class="fas fa-angle-right" style="font-size: 25px; vertical-align: middle; margin-left: 5px;"></i>
+            </a>
+        </h2>
+        <div class="school-movies">
+            <!-- Phim 1 -->
+            <div class="school-movie-card">
+                <div class="school-movie-poster">
+                    <img src="images/15.jpg" alt="Ngày Nắng Xanh Trong" loading="lazy">
+                </div>
+                <div class="school-movie-info">
+                    <h3 class="school-movie-title">Chúng Ta Hãy Kết Hôn Nhé</h3>
+                    <div class="school-movie-original-title">My Merry Marriage</div>
+                    <div class="school-movie-categories">
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Hài Hước</span>
+                        <span class="school-movie-category">Chính Kịch</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Phim 2 -->
+            <div class="school-movie-card">
+                <div class="school-movie-poster">
+                    <img src="images/16.jpg" alt="Hoa Nở Giữa Đời Thường" loading="lazy">
+                </div>
+                <div class="school-movie-info">
+                    <h3 class="school-movie-title">Cặp Đôi Định Mệnh</h3>
+                    <div class="school-movie-original-title">Heart Pairing</div>
+                    <div class="school-movie-categories">
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Chính Kịch</span>  
                         <span class="school-movie-category">Tình cảm</span>
                     </div>
                 </div>
@@ -170,14 +275,14 @@
             <!-- Phim 3 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Khoảnh%20Khắc%20Thanh%20Xuân" alt="Khoảnh Khắc Thanh Xuân" loading="lazy">
+                    <img src="images/17.jpg" alt="Khoảnh Khắc Thanh Xuân" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Khoảnh Khắc Thanh Xuân</h3>
-                    <div class="school-movie-original-title">Moment of Youth</div>
+                    <h3 class="school-movie-title">Ẩm Thực Miền Quê Cùng Edward Lee</h3>
+                    <div class="school-movie-original-title">Edward Lee's Country Cook</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Thanh xuân</span>
-                        <span class="school-movie-category">Tình bạn</span>
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Chính Kịch</span>  
                     </div>
                 </div>
             </div>
@@ -185,127 +290,61 @@
             <!-- Phim 4 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Khúc%20Ca%20Tuổi%20Trẻ" alt="Khúc Ca Tuổi Trẻ" loading="lazy">
+                    <img src="images/18.jpg" alt="Khúc Ca Tuổi Trẻ" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Khúc Ca Tuổi Trẻ</h3>
-                    <div class="school-movie-original-title">Youth Melody</div>
+                    <h3 class="school-movie-title">Vòng Xoáy Tình Yêu</h3>
+                    <div class="school-movie-original-title">Love Twist</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Âm nhạc</span>
-                        <span class="school-movie-category">Học đường</span>
-                    </div>
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Chính Kịch</span>  
+                        <span class="school-movie-category">Tình cảm</span>
+                        <span class="school-movie-category">Hài Hước</span>
+                        <span class="school-movie-category">Tâm lý</span>
+                    </div> 
                 </div>
             </div>
-            
             <!-- Phim 5 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Mùa%20Hè%20Năm%20Ấy" alt="Mùa Hè Năm Ấy" loading="lazy">
+                    <img src="images/19.jpg" alt="Mùa Hè Năm Ấy" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Mùa Hè Năm Ấy</h3>
-                    <div class="school-movie-original-title">Summer of That Year</div>
+                    <h3 class="school-movie-title">Tìm Lại Quê Hương</h3>
+                    <div class="school-movie-original-title">Everybody Say Kungdari</div>
                     <div class="school-movie-categories">
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Chính Kịch</span>  
                         <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Thanh xuân</span>
+                        <span class="school-movie-category">Tâm lý</span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- Phim hành động -->
-        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">Hành động gay cấn</h2>
-        <div class="school-movies">
-            <!-- Phim 1 -->
-            <div class="school-movie-card">
-                <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Đấu%20Trường%20Sinh%20Tử" alt="Đấu Trường Sinh Tử" loading="lazy">
-                </div>
-                <div class="school-movie-info">
-                    <h3 class="school-movie-title">Đấu Trường Sinh Tử</h3>
-                    <div class="school-movie-original-title">The Hunger Games</div>
-                    <div class="school-movie-categories">
-                        <span class="school-movie-category">Hành động</span>
-                        <span class="school-movie-category">Phiêu lưu</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Phim 2 -->
-            <div class="school-movie-card">
-                <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Nhiệm%20Vụ%20Bất%20Khả%20Thi" alt="Nhiệm Vụ Bất Khả Thi" loading="lazy">
-                </div>
-                <div class="school-movie-info">
-                    <h3 class="school-movie-title">Nhiệm Vụ Bất Khả Thi</h3>
-                    <div class="school-movie-original-title">Mission Impossible</div>
-                    <div class="school-movie-categories">
-                        <span class="school-movie-category">Hành động</span>
-                        <span class="school-movie-category">Điệp viên</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Phim 3 -->
-            <div class="school-movie-card">
-                <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Biệt%20Đội%20Siêu%20Anh%20Hùng" alt="Biệt Đội Siêu Anh Hùng" loading="lazy">
-                </div>
-                <div class="school-movie-info">
-                    <h3 class="school-movie-title">Biệt Đội Siêu Anh Hùng</h3>
-                    <div class="school-movie-original-title">The Avengers</div>
-                    <div class="school-movie-categories">
-                        <span class="school-movie-category">Hành động</span>
-                        <span class="school-movie-category">Siêu anh hùng</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Phim 4 -->
-            <div class="school-movie-card">
-                <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=John%20Wick" alt="John Wick" loading="lazy">
-                </div>
-                <div class="school-movie-info">
-                    <h3 class="school-movie-title">John Wick</h3>
-                    <div class="school-movie-original-title">John Wick</div>
-                    <div class="school-movie-categories">
-                        <span class="school-movie-category">Hành động</span>
-                        <span class="school-movie-category">Trả thù</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Phim 5 -->
-            <div class="school-movie-card">
-                <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Fast%20and%20Furious" alt="Fast and Furious" loading="lazy">
-                </div>
-                <div class="school-movie-info">
-                    <h3 class="school-movie-title">Fast and Furious</h3>
-                    <div class="school-movie-original-title">Fast and Furious</div>
-                    <div class="school-movie-categories">
-                        <span class="school-movie-category">Hành động</span>
-                        <span class="school-movie-category">Đua xe</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         
         <!-- Phim tình cảm lãng mạn -->
-        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">Tình cảm lãng mạn</h2>
+        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">
+            <a href="the-loai.html?slug=hoc-duong&name=Học%20Đường" style="text-decoration: none; color: #ff3e79; display: block; transition: all 0.3s ease;" onmouseover="this.style.color='#d63369'" onmouseout="this.style.color='#ff3e79'">
+                Thanh Xuân Vườn Trường
+                <i class="fas fa-angle-right" style="font-size: 25px; vertical-align: middle; margin-left: 5px;"></i>
+            </a>
+        </h2>
         <div class="school-movies">
             <!-- Phim 1 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Titanic" alt="Titanic" loading="lazy">
+                    <img src="images/25.jpg" alt="Titanic" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Titanic</h3>
-                    <div class="school-movie-original-title">Titanic</div>
+                    <h3 class="school-movie-title">Khi Ngón Tay Anh Chạm Vào Hơi Ấm Của Em</h3>
+                    <div class="school-movie-original-title">The Time of Fever</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Bi kịch</span>
+                        <span class="school-movie-category">Chính Kịch</span>
+                        <span class="school-movie-category">Gia Đình</span>
+                        <span class="school-movie-category">Học Đường</span>
+                        <span class="school-movie-category">Tình Cảm</span>
                     </div>
                 </div>
             </div>
@@ -313,14 +352,14 @@
             <!-- Phim 2 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Chuyện%20Tình%20Nàng%20Lọ%20Lem" alt="Chuyện Tình Nàng Lọ Lem" loading="lazy">
+                    <img src="images/26.jpg" alt="Chuyện Tình Nàng Lọ Lem" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Chuyện Tình Nàng Lọ Lem</h3>
-                    <div class="school-movie-original-title">Cinderella Love Story</div>
+                    <h3 class="school-movie-title">Dear. M</h3>
+                    <div class="school-movie-original-title">Dear. M</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Hài hước</span>
+                        <span class="school-movie-category">Tâm Lý</span>
+                        <span class="school-movie-category">Học Đường</span>
                     </div>
                 </div>
             </div>
@@ -328,14 +367,16 @@
             <!-- Phim 3 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Nhật%20Ký%20Tình%20Yêu" alt="Nhật Ký Tình Yêu" loading="lazy">
+                    <img src="images/27.jpg" alt="Nhật Ký Tình Yêu" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Nhật Ký Tình Yêu</h3>
-                    <div class="school-movie-original-title">The Notebook</div>
+                    <h3 class="school-movie-title">Thiếu Nữ Phù Thủy Quyết Đấu</h3>
+                    <div class="school-movie-original-title">The Great Shaman Ga Doo Shim</div>
                     <div class="school-movie-categories">
                         <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Lãng mạn</span>
+                        <span class="school-movie-category">Viễn tưởng</span>
+                        <span class="school-movie-category">Bí ẩn</span>
+                        <span class="school-movie-category">Học đường</span>
                     </div>
                 </div>
             </div>
@@ -343,14 +384,17 @@
             <!-- Phim 4 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Em%20Của%20Thời%20Niên%20Thiếu" alt="Em Của Thời Niên Thiếu" loading="lazy">
+                    <img src="images/28.jpg" alt="Em Của Thời Niên Thiếu" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Em Của Thời Niên Thiếu</h3>
-                    <div class="school-movie-original-title">Our Times</div>
+                    <h3 class="school-movie-title">Đội Cầu Lông Thiếu Niên</h3>
+                    <div class="school-movie-original-title">Racket Boys</div>
                     <div class="school-movie-categories">
                         <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Thanh xuân</span>
+                        <span class="school-movie-category">Thể Thao</span>
+                        <span class="school-movie-category">Học đường</span>
+                        <span class="school-movie-category">Tâm lý</span>
+                        <span class="school-movie-category">Gia đình</span>
                     </div>
                 </div>
             </div>
@@ -358,33 +402,41 @@
             <!-- Phim 5 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=500%20Ngày%20Yêu" alt="500 Ngày Yêu" loading="lazy">
+                    <img src="images/29.jpg" alt="500 Ngày Yêu" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">500 Ngày Yêu</h3>
-                    <div class="school-movie-original-title">500 Days of Summer</div>
+                    <h3 class="school-movie-title">Bạn Cùng Phòng Của Tôi Là Gumiho</h3>
+                    <div class="school-movie-original-title">My Roommate Is A Gumiho</div>
                     <div class="school-movie-categories">
                         <span class="school-movie-category">Tình cảm</span>
-                        <span class="school-movie-category">Hài hước</span>
+                        <span class="school-movie-category">Viễn Tưởng</span>
+                        <span class="school-movie-category">Học đường</span>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Phim khoa học viễn tưởng -->
-        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">Khoa học viễn tưởng</h2>
+        <h2 style="font-size: 35px; padding:0px 40px ; color: #ff3e79">
+            <a href="the-loai.html?slug=tre-em&name=Trẻ%20Em" style="text-decoration: none; color: #ff3e79; display: block; transition: all 0.3s ease;" onmouseover="this.style.color='#d63369'" onmouseout="this.style.color='#ff3e79'">
+                Phim Thiếu Nhi mà Người Lớn Vẫn Thích Cày :3
+                <i class="fas fa-angle-right" style="font-size: 25px; vertical-align: middle; margin-left: 5px;"></i>
+            </a>
+        </h2>
         <div class="school-movies">
             <!-- Phim 1 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Kẻ%20Du%20Hành" alt="Kẻ Du Hành" loading="lazy">
+                    <img src="images/30.jpg" alt="Kẻ Du Hành" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Kẻ Du Hành</h3>
-                    <div class="school-movie-original-title">Interstellar</div>
+                    <h3 class="school-movie-title">Nhóc Trùm: Nối Nghiệp Gia Đình</h3>
+                    <div class="school-movie-original-title">The Boss Baby: Family Business</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Khoa học</span>
-                        <span class="school-movie-category">Viễn tưởng</span>
+                        <span class="school-movie-category">Hoạt hình</span>
+                        <span class="school-movie-category">Hài hước</span>
+                        <span class="school-movie-category">Phiêu lưu</span>
+                        <span class="school-movie-category">Gia đình</span>
                     </div>
                 </div>
             </div>
@@ -392,14 +444,16 @@
             <!-- Phim 2 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Ma%20Trận" alt="Ma Trận" loading="lazy">
+                    <img src="images/31.jpg" alt="Ma Trận" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Ma Trận</h3>
-                    <div class="school-movie-original-title">The Matrix</div>
+                    <h3 class="school-movie-title">Phineas Và Ferb</h3>
+                    <div class="school-movie-original-title">Phineas And Ferb</div>
                     <div class="school-movie-categories">
+                        <span class="school-movie-category">Viễn tưởng</span>
                         <span class="school-movie-category">Khoa học</span>
-                        <span class="school-movie-category">Hành động</span>
+                        <span class="school-movie-category">Gia đình</span>
+                        <span class="school-movie-category">Hài hước</span>
                     </div>
                 </div>
             </div>
@@ -407,14 +461,15 @@
             <!-- Phim 3 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Kỷ%20Nguyên%20Robot" alt="Kỷ Nguyên Robot" loading="lazy">
+                    <img src="images/32.jpg" alt="Kỷ Nguyên Robot" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Kỷ Nguyên Robot</h3>
-                    <div class="school-movie-original-title">I, Robot</div>
+                    <h3 class="school-movie-title">Thủy Thủ Mặt Trăng Pha Lê</h3>
+                    <div class="school-movie-original-title">Sailor Moon Crystal</div>
                     <div class="school-movie-categories">
                         <span class="school-movie-category">Khoa học</span>
-                        <span class="school-movie-category">Robot</span>
+                        <span class="school-movie-category">Viễn tưởng</span>
+                        <span class="school-movie-category">Trẻ em</span>
                     </div>
                 </div>
             </div>
@@ -422,14 +477,17 @@
             <!-- Phim 4 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Trở%20Về%20Tương%20Lai" alt="Trở Về Tương Lai" loading="lazy">
+                    <img src="images/33.jpg" alt="Trở Về Tương Lai" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Trở Về Tương Lai</h3>
-                    <div class="school-movie-original-title">Back to the Future</div>
+                    <h3 class="school-movie-title">Chúng Tôi Đơn Giản Là Gấu</h3>
+                    <div class="school-movie-original-title">We Bare Bears: The Movie</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Khoa học</span>
+                        <span class="school-movie-category">Hoạt hình</span>
+                        <span class="school-movie-category">Gia đình</span>
+                        <span class="school-movie-category">Phiêu lưu</span>
                         <span class="school-movie-category">Hài hước</span>
+                        <span class="school-movie-category">Chương Trình Truyền Hình</span>
                     </div>
                 </div>
             </div>
@@ -437,14 +495,15 @@
             <!-- Phim 5 -->
             <div class="school-movie-card">
                 <div class="school-movie-poster">
-                    <img src="https://placehold.co/300x450/ffe5ec/ff3e79?text=Người%20Về%20Từ%20Sao%20Hỏa" alt="Người Về Từ Sao Hỏa" loading="lazy">
+                    <img src="images/34.jpg" alt="Người Về Từ Sao Hỏa" loading="lazy">
                 </div>
                 <div class="school-movie-info">
-                    <h3 class="school-movie-title">Người Về Từ Sao Hỏa</h3>
-                    <div class="school-movie-original-title">The Martian</div>
+                    <h3 class="school-movie-title">Kỷ Băng Hà</h3>
+                    <div class="school-movie-original-title">Ice Age</div>
                     <div class="school-movie-categories">
-                        <span class="school-movie-category">Khoa học</span>
+                        <span class="school-movie-category">Hài hước</span>
                         <span class="school-movie-category">Phiêu lưu</span>
+                        <span class="school-movie-category">Gia đình</span>
                     </div>
                 </div>
             </div>
@@ -471,13 +530,13 @@
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-youtube"></i></a>
             </div>
-            <p>© 2023 MovieLand. Tất cả quyền được bảo lưu.</p>
+            <p>© 2025 MovieLand. By Tuan Dat, Kim Thinh, Thu Trang, Phuong Quynh</p>
         </div>
     </footer>
 
-    <script src="public/js/dropdown.js"></script>
-    <script src="public/js/script.js"></script>
-    <script src="public/js/auth.js"></script>
-    <script src="public/js/recent-movies.js"></script>
+    <script src="js/dropdown.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/recent-movies.js"></script>
 </body>
 </html> 
