@@ -2,7 +2,7 @@
 
 /* Mobile Menu */
 .mobile-menu-icon {
-    display: none;
+    display: none; /* Mặc định ẩn trên desktop */
     font-size: 24px;
     color: white;
     cursor: pointer;
