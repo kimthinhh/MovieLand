@@ -7,7 +7,7 @@
 }
 @font-face {
     font-family: 'ClarenceTwo';
-    src: url('public/font/ClarenceTwo-Regular.ttf') format('truetype');
+    src: url('font/ClarenceTwo-Regular.ttf') format('truetype');
   }
 body {
     background-color: #fff5f8;
