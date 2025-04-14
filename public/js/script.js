@@ -556,3 +556,40 @@ document.addEventListener('DOMContentLoaded', function() {
 //     };
 // }
 
+// Hàm để lấy dữ liệu từ file data.json
+function fetchData() {
+    fetch('public/data.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Không thể tải dữ liệu');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Giả sử dữ liệu là một mảng các đối tượng
+            const names = data.map(item => item.name); // Lấy thuộc tính name
+            console.log(names); // In ra danh sách tên để kiểm tra
+            setupSearch(names); // Thiết lập chức năng tìm kiếm
+        })
+        .catch(error => {
+            console.error('Lỗi:', error);
+        });
+}
+
+// Hàm để thiết lập chức năng tìm kiếm
+function setupSearch(names) {
+    const searchInput = document.getElementById('search-input');
+    const resultsContainer = document.getElementById('results');
+
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        const filteredNames = names.filter(name => name.toLowerCase().includes(query));
+
+        // Hiển thị kết quả tìm kiếm
+        resultsContainer.innerHTML = filteredNames.map(name => `<div>${name}</div>`).join('');
+    });
+}
+
+// Gọi hàm fetchData khi trang được tải
+document.addEventListener('DOMContentLoaded', fetchData);
+

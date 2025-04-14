@@ -87,6 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const movie = data.movie;
         console.log("Thông tin phim:", JSON.stringify(movie, null, 2));
         
+        // Debug dữ liệu đánh giá phim
+        console.log("Vote Average:", movie.vote_average);
+        console.log("Vote Count:", movie.vote_count);
+        console.log("Vote Average trong tmdb:", movie.tmdb ? movie.tmdb.vote_average : 'Không có');
+        console.log("Vote Count trong tmdb:", movie.tmdb ? movie.tmdb.vote_count : 'Không có');
+        
         // Debug: Kiểm tra episodes có ở đâu
         if (data.episodes) {
             console.log("Episodes ở cấp ROOT:", data.episodes);
@@ -266,6 +272,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr>
                             <td class="info-label">Quốc gia</td>
                             <td class="info-value">${countries}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-label">Điểm trung bình</td>
+                            <td class="info-value">${movie.tmdb && movie.tmdb.vote_average ? movie.tmdb.vote_average.toFixed(1) + '/10' : 'Chưa có đánh giá'}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-label">Lượt đánh giá</td>
+                            <td class="info-value">${movie.tmdb && movie.tmdb.vote_count ? movie.tmdb.vote_count.toLocaleString() : '0'}</td>
                         </tr>
                     </table>
                 </div>
