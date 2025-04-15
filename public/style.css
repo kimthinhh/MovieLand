@@ -661,7 +661,12 @@ footer {
     justify-content: center;
     margin-bottom: 20px;
 }
-
+.vn-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;    
+}
 .footer-logo img {
     height: 40px;
     margin-right: 10px;
