@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </table>
                 </div>
                 
-                <div class="movie-description" style="${isMobile ? 'display:block;' : ''}">
+                <div class="movie-description">
                     <h3>Nội dung phim</h3>
                     <p>${movie.content || 'Chưa có nội dung phim'}</p>
                 </div>
