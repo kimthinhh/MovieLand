@@ -183,6 +183,11 @@
         max-width: 80%;
     }
     
+    /* Ẩn slider-dots trên tablet */
+    .slider-navigation {
+        display: none;
+    }
+    
     /* Chi tiết phim responsive */
     .movie-details-container {
         grid-template-columns: 250px 1fr;
@@ -253,12 +258,12 @@
     }
     
     .hero-banner {
-        height: 450px;
+        height: 400px;
     }
     
     .banner-content {
         max-width: 90%;
-        margin-top: 30px;
+        padding: 0 20px;
     }
     
     .banner-content h1 {
@@ -266,21 +271,20 @@
     }
     
     .movie-tags .tag {
-        font-size: 12px;
-        padding: 5px 10px;
+        margin-bottom: 5px;
     }
     
+    /* Bỏ các điểm slider trên mobile */
     .slider-dots {
-        gap: 7px;
+        display: none;
     }
     
     .dot {
-        width: 45px;
-        height: 45px;
+        display: none;
     }
     
     h2 {
-        font-size: 28px !important;
+        font-size: 24px !important;
         padding: 0 20px !important;
     }
     
@@ -321,6 +325,15 @@
         justify-content: center;
     }
     
+    .favorite-button-container {
+        justify-content: center !important;
+        margin: 15px 0;
+    }
+    
+    .movie-info-table {
+        margin-top: 15px;
+    }
+    
     .episodes-list {
         grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     }
@@ -343,6 +356,7 @@
 
     .movie-details {
         margin-top: 60px;
+        padding: 20px 0;
     }
 }
 
@@ -467,49 +481,180 @@
         font-size: 14px;
     }
     
-    /* Chi tiết phim responsive */
-    .movie-poster-large {
-        height: 350px;
-        max-width: 240px;
+    /* Chi tiết phim trên mobile */
+    .movie-details {
+        margin-top: 65px;
+        padding: 0;
+        background: #f5f5f5;
     }
-    
-    .watch-buttons {
-        flex-direction: column;
-        gap: 10px;
+
+    .movie-details-container {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-columns: unset !important;
+        gap: 0 !important;
     }
-    
-    .watch-button {
+
+    .movie-left-column, .movie-right-column {
         width: 100%;
+        grid-column: unset !important;
     }
-    
-    .episodes-list {
-        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+
+    .movie-poster-large {
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        position: relative;
+        display: block;
     }
-    
+
+    .movie-poster-large img {
+        width: 100%;
+        display: block;
+        height: auto;
+    }
+
+    .movie-title-section {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .movie-title-large {
+        font-size: 24px !important;
+        word-break: break-word;
+    }
+
+    .watch-buttons {
+        flex-direction: column !important;
+        padding: 0 15px !important;
+        gap: 10px !important;
+    }
+
+    .watch-button {
+        width: 100% !important;
+        border-radius: 5px !important;
+    }
+
+    .watch-now {
+        background-color: #e74c3c !important;
+    }
+
+    .watch-trailer {
+        background-color: #e74c3c !important;
+        color: white !important;
+        border: none !important;
+    }
+
+    .movie-info-table {
+        display: flex !important;
+        flex-direction: column !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        margin: 10px 0 !important;
+    }
+
+    .movie-info-table tr {
+        display: flex !important;
+        padding: 8px 15px !important;
+        border-bottom: 1px solid #eee !important;
+    }
+
     .movie-info-table td {
-        padding: 10px;
+        padding: 0 !important;
+        border: none !important;
     }
-    
+
     .info-label {
-        width: 110px;
-        font-size: 14px;
+        width: 40% !important;
+        color: #333 !important;
+        font-weight: 600 !important;
     }
-    
+
     .info-value {
-        font-size: 14px;
+        width: 60% !important;
+        text-align: right !important;
+        color: #666 !important;
     }
-    
-    .movie-description h3,
+
+    .movie-description {
+        display: block !important;
+        padding: 15px !important;
+        margin: 15px !important;
+        background-color: #fff !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    }
+
+    .movie-description h3 {
+        color: #e74c3c !important;
+        font-size: 18px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .movie-description p {
+        line-height: 1.5 !important;
+        color: #333 !important;
+        font-size: 14px !important;
+    }
+
+    .episodes-container {
+        display: block !important;
+        padding: 15px !important;
+        margin: 15px !important;
+        background-color: #fff !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    }
+
     .episodes-container h3 {
-        font-size: 18px;
+        color: #e74c3c !important;
+        font-size: 18px !important;
+        margin-bottom: 10px !important;
     }
-    
+
+    .episodes-list {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)) !important;
+        gap: 8px !important;
+    }
+
+    .episode-item {
+        background-color: #f5f5f5 !important;
+        border: 1px solid #ddd !important;
+        border-radius: 5px !important;
+        padding: 8px 5px !important;
+        text-align: center !important;
+        font-size: 13px !important;
+    }
+
+    .episode-item.active {
+        background-color: #e74c3c !important;
+        color: white !important;
+        border-color: #e74c3c !important;
+    }
+
+    .server-tabs {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+        margin-bottom: 15px !important;
+    }
+
     .server-tab {
-        padding: 6px 12px;
-        font-size: 14px;
-        margin-bottom: 5px;
+        padding: 8px 10px !important;
+        font-size: 13px !important;
+        background: #f5f5f5 !important;
+        border-radius: 5px !important;
+        border: 1px solid #ddd !important;
     }
-    
+
+    .server-tab.active {
+        background-color: #e74c3c !important;
+        color: white !important;
+        border-color: #e74c3c !important;
+    }
+
     .footer-links {
         flex-direction: column;
         gap: 10px;
@@ -574,6 +719,7 @@
     
     .movie-title-original {
         font-size: 14px;
+        margin-bottom: 10px;
     }
     
     .info-label {
@@ -582,6 +728,31 @@
     }
     
     .info-value {
+        font-size: 13px;
+    }
+    
+    .episodes-list {
+        grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+        gap: 6px;
+    }
+    
+    .episode-item {
+        padding: 5px 2px;
+        font-size: 12px;
+    }
+    
+    .watch-button {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .favorite-button {
+        height: 40px;
+        font-size: 13px;
+    }
+    
+    .server-tab {
+        padding: 5px 10px;
         font-size: 13px;
     }
     
@@ -636,4 +807,9 @@
         margin-top: 50px;
         padding: 10px 0;
     }
+}
+
+/* Tablet Styles (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    /* ... existing code ... */
 } 

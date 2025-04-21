@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả tìm kiếm - MovieLand</title>
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .search-page {
+            margin-top: 80px;
+            min-height: 60vh;
+            padding: 30px 0;
+        }
+        
+        .search-header {
+            margin-bottom: 30px;
+            padding: 0 40px;
+        }
+        
+        .search-header h1 {
+            color: #e17c97;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .search-header .search-info {
+            color: #777;
+            font-size: 16px;
+        }
+        
+        .search-loading {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .search-loading i {
+            font-size: 40px;
+            color: #e17c97;
+            margin-bottom: 15px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .no-results i {
+            font-size: 48px;
+            color: #e17c97;
+            margin-bottom: 20px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .pagination .page-item {
+            margin: 0 5px;
+        }
+        
+        .pagination .page-link {
+            display: block;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination .page-link:hover {
+            background-color: #f9edf2;
+            border-color: #e17c97;
+        }
+        
+        .pagination .page-link.active {
+            background-color: #e17c97;
+            color: white;
+            border-color: #e17c97;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 0 40px;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            margin-right: 10px;
+            color: #555;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-option {
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-option:hover {
+            background-color: #f9edf2;
+            border-color: #e17c97;
+        }
+        
+        .filter-option.active {
+            background-color: #e17c97;
+            color: white;
+            border-color: #e17c97;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: #d192ac;">
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="MovieLand">
+                    <span class="logo-text" style="font-family: ClarenceTwo; font-size: 30px;color: #FFe5ec;">MovieLand</span>
+                </a>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Tìm kiếm phim, diễn viên">
+                <button class="search-button" id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="navigation">
+                <a href="phim-bo.html">Phim Bộ</a>
+                <a href="phim-le.html">Phim Lẻ</a>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Thể Loại <i class="fas fa-caret-down"></i></a>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="dropdown-toggle">Quốc Gia <i class="fas fa-caret-down"></i></a>
+                </div>
+            </div>
+            <div class="user-actions">
+                <a href="#" id="login-btn" onclick="showLoginForm(); return false;"><i class="fas fa-user"></i> Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="search-page">
+            <div class="container">
+                <div class="search-header">
+                    <h1>Kết quả tìm kiếm</h1>
+                    <div class="search-info">Đang tải...</div>
+                </div>
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <div class="filter-label">Loại phim:</div>
+                        <div class="filter-options" id="type-filter">
+                            <div class="filter-option active" data-value="">Tất cả</div>
+                            <div class="filter-option" data-value="single">Phim lẻ</div>
+                            <div class="filter-option" data-value="series">Phim bộ</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="movie-grid" id="search-results-grid">
+                    <div class="search-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Đang tải kết quả tìm kiếm...</p>
+                    </div>
+                </div>
+                
+                <div class="pagination" id="pagination">
+                    <!-- Phân trang sẽ được thêm bằng JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="MovieLand">
+                <span>MovieLand</span>
+            </div>
+            <div class="vn-logo">
+                <img src="images/vn.png " aly="VietNam" style="padding-left: 50px; height: 40px;">
+                <span style=" font-size: 20px;padding-left: 30px;">Hoàng Sa, Trường Sa là của Việt Nam</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Về chúng tôi</a>
+                <a href="#">Điều khoản sử dụng</a>
+                <a href="#">Chính sách bảo mật</a>
+                <a href="#">Liên hệ</a>
+            </div>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>© 2025 MovieLand. By Tuan Dat, Kim Thinh, Thu Trang, Phuong Quynh</p>
+        </div>
+    </footer>
+
+    <script src="js/dropdown.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/mobile-menu.js"></script>
+    <script src="js/search-results.js"></script>
+    <script src="js/user-features.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/global-search.js"></script>
+</body>
+</html> 

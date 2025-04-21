@@ -1689,3 +1689,26 @@ select, input, button {
 .search-loading i.fa-spinner {
     animation: search-spin 1s linear infinite;
 }
+
+.search-view-all {
+    padding: 10px 15px;
+    text-align: center;
+    border-top: 1px solid #ffdbea;
+    margin-top: 5px;
+}
+
+.search-view-all button {
+    background-color: #ff3e79;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.search-view-all button:hover {
+    background-color: #e62e69;
+}

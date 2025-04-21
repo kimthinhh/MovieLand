@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="images/logo.png" />
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsive.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <style>
         .movie-details {
@@ -108,6 +108,39 @@
         
         .watch-trailer:active {
             transform: scale(0.98);
+        }
+        
+        /* CSS cho nút yêu thích */
+        .favorite-button {
+            background-color: transparent;
+            color: #e17c97;
+            border: 2px solid #e17c97;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 150px;
+            height: 50px;
+        }
+        
+        .favorite-button-container {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start !important;
+        }
+        
+        .favorite-button:hover {
+            background-color: rgba(225, 124, 151, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .favorite-button.active {
+            background-color: #e17c97;
+            color: white;
+        }
+        
+        .favorite-button i {
+            font-size: 16px;
+            margin-right: 5px;
         }
         
         .movie-info-table {
@@ -385,8 +418,83 @@
     </footer>
 
     <script src="js/dropdown.js"></script>
-    <script src="js/auth.js"></script>
     <script src="js/movie-details.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/mobile-menu.js"></script>
+    <script src="js/user-features.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/global-search.js"></script>
+    <script>
+        // Script để đảm bảo hiển thị đúng trên mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Kiểm tra nếu đang ở phiên bản mobile
+            function isMobile() {
+                return window.innerWidth <= 480;
+            }
+            
+            // Hàm điều chỉnh cấu trúc hiển thị cho mobile
+            function adjustForMobile() {
+                // Nếu là mobile, thực hiện các thay đổi cần thiết
+                if (isMobile()) {
+                    // Kiểm tra mỗi 500ms để bắt được khi nội dung đã được render bởi movie-details.js
+                    const checkInterval = setInterval(function() {
+                        const detailsContainer = document.querySelector('.movie-details-container');
+                        const posterImage = document.querySelector('.movie-poster-large');
+                        
+                        if (detailsContainer && posterImage) {
+                            clearInterval(checkInterval);
+                            
+                            // Đảm bảo hiển thị đúng của poster
+                            if (posterImage.style.backgroundImage) {
+                                const bgImageUrl = posterImage.style.backgroundImage.replace('url(', '').replace(')', '').replace(/"/g, '');
+                                
+                                // Tạo thẻ img nếu chưa có
+                                if (!posterImage.querySelector('img')) {
+                                    const img = document.createElement('img');
+                                    img.src = bgImageUrl;
+                                    img.alt = document.querySelector('.movie-title-large')?.textContent || 'Movie poster';
+                                    posterImage.appendChild(img);
+                                }
+                            }
+                            
+                            // Hiển thị phần mô tả và danh sách tập
+                            const description = document.querySelector('.movie-description');
+                            const episodesContainer = document.querySelector('.episodes-container');
+                            
+                            if (description) {
+                                description.style.display = 'block';
+                            }
+                            
+                            if (episodesContainer) {
+                                episodesContainer.style.display = 'block';
+                            }
+                            
+                            // Áp dụng style cho các nút xem phim và trailer theo thiết kế mobile
+                            const watchNowBtn = document.querySelector('.watch-now');
+                            const trailerBtn = document.querySelector('.watch-trailer');
+                            
+                            if (watchNowBtn) {
+                                watchNowBtn.style.backgroundColor = '#e74c3c';
+                                watchNowBtn.style.borderRadius = '5px';
+                            }
+                            
+                            if (trailerBtn) {
+                                trailerBtn.style.backgroundColor = '#e74c3c';
+                                trailerBtn.style.color = 'white';
+                                trailerBtn.style.border = 'none';
+                                trailerBtn.style.borderRadius = '5px';
+                            }
+                        }
+                    }, 500);
+                }
+            }
+            
+            // Chạy khi trang tải lần đầu
+            adjustForMobile();
+            
+            // Chạy lại khi thay đổi kích thước màn hình
+            window.addEventListener('resize', adjustForMobile);
+        });
+    </script>
 </body>
 </html> 

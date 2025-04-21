@@ -205,11 +205,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
+        // Kiểm tra xem đang xem trên mobile hay không
+        const isMobile = window.innerWidth <= 480;
+        
+        // Thêm class specific cho mobile nếu cần
+        const mobileClass = isMobile ? 'movie-details-mobile' : '';
+        
         // Hiển thị chi tiết phim theo bố cục mới với thông tin bên phải poster
         movieDetailsContainer.innerHTML = `
-            <div class="movie-details-container">
+            <div class="movie-details-container ${mobileClass}">
                 <div class="movie-left-column">
                     <div class="movie-poster-large" style="background-image: url('${posterUrl}')">
+                        ${isMobile ? `<img src="${posterUrl}" alt="${movie.name}">` : ''}
                         <span class="movie-quality-tag">${movie.quality || 'HD'}</span>
                         <span class="movie-episode-tag">${status}</span>
                     </div>
@@ -224,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <i class="fas fa-play"></i> Xem Phim
                         </button>
                     </div>
+                    <!-- Container cho nút yêu thích sẽ được thêm ở đây qua JavaScript -->
                 </div>
                 
                 <div class="movie-right-column">
@@ -284,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </table>
                 </div>
                 
-                <div class="movie-description">
+                <div class="movie-description" style="${isMobile ? 'display:block;' : ''}">
                     <h3>Nội dung phim</h3>
                     <p>${movie.content || 'Chưa có nội dung phim'}</p>
                 </div>
@@ -292,6 +300,130 @@ document.addEventListener('DOMContentLoaded', function() {
                 ${hasEpisodes ? renderEpisodesSection(movie) : ''}
             </div>
         `;
+        
+        // Nếu là mobile, áp dụng style trực tiếp
+        if (isMobile) {
+            const poster = document.querySelector('.movie-poster-large');
+            const watchNowBtn = document.querySelector('.watch-now');
+            const trailerBtn = document.querySelector('.watch-trailer');
+            const episodesContainer = document.querySelector('.episodes-container');
+            
+            // Áp dụng style cho poster
+            if (poster) {
+                poster.style.height = 'auto';
+                poster.style.width = '100%';
+                poster.style.maxWidth = '100%';
+                poster.style.borderRadius = '0';
+                poster.style.margin = '0';
+                poster.style.boxShadow = 'none';
+            }
+            
+            // Áp dụng style cho nút xem phim
+            if (watchNowBtn) {
+                watchNowBtn.style.backgroundColor = '#e74c3c';
+                watchNowBtn.style.borderRadius = '5px';
+                watchNowBtn.style.width = '100%';
+                watchNowBtn.style.boxSizing = 'border-box';
+            }
+            
+            // Áp dụng style cho nút trailer
+            if (trailerBtn) {
+                trailerBtn.style.backgroundColor = '#e74c3c';
+                trailerBtn.style.color = 'white';
+                trailerBtn.style.border = 'none';
+                trailerBtn.style.borderRadius = '5px';
+                trailerBtn.style.width = '100%';
+                trailerBtn.style.boxSizing = 'border-box';
+            }
+            
+            // Hiển thị phần danh sách tập
+            if (episodesContainer) {
+                episodesContainer.style.display = 'block';
+            }
+            
+            // Tạo style mới áp dụng cho mobile
+            const styleElement = document.createElement('style');
+            styleElement.textContent = `
+                @media (max-width: 480px) {
+                    .movie-details-container {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 0;
+                        width: 100%;
+                        max-width: 100%;
+                        box-sizing: border-box;
+                    }
+                    
+                    .watch-buttons {
+                        flex-direction: column;
+                        gap: 10px;
+                        padding: 0 15px;
+                        margin-top: 15px;
+                    }
+                    
+                    .movie-title-section {
+                        text-align: center;
+                        padding: 15px;
+                    }
+                    
+                    .movie-info-table {
+                        display: flex;
+                        flex-direction: column;
+                        background: none;
+                        box-shadow: none;
+                        margin: 0;
+                    }
+                    
+                    .movie-info-table tr {
+                        display: flex;
+                        padding: 8px 15px;
+                        border-bottom: 1px solid #eee;
+                    }
+                    
+                    .movie-info-table td {
+                        padding: 0;
+                        border: none;
+                    }
+                    
+                    .info-label {
+                        width: 100px;
+                        color: #2c3e50;
+                        font-weight: 500;
+                        flex-shrink: 0;
+                    }
+                    
+                    .info-value {
+                        flex: 1;
+                        text-align: right;
+                        color: #2c3e50;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: normal;
+                        word-wrap: break-word;
+                        padding-left: 10px;
+                    }
+                    
+                    .movie-description {
+                        display: block;
+                        padding: 15px;
+                        margin: 15px;
+                        background-color: #fff;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    }
+                    
+                    .episodes-container {
+                        display: block;
+                        padding: 15px;
+                        margin: 15px;
+                        background-color: #fff;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                    }
+                }
+            `;
+            document.head.appendChild(styleElement);
+        }
         
         // Thêm sự kiện click cho các nút chọn tập phim
         if (hasEpisodes) {
@@ -311,6 +443,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (episodeHref && episodeHref !== '#') {
                             console.log("Mở link từ tập đầu tiên:", episodeHref);
                             window.open(episodeHref, '_blank');
+                            
+                            // Cập nhật lịch sử xem nếu tính năng user-features đã tải
+                            if (typeof updateWatchHistory === 'function') {
+                                updateWatchHistory(movieSlug);
+                            }
                         } else {
                             console.log("Tập đầu tiên không có link hợp lệ");
                             alert('Không tìm thấy link xem phim hợp lệ');
@@ -339,6 +476,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (embedLink) {
                         console.log("Mở link xem phim lẻ:", embedLink);
                         window.open(embedLink, '_blank');
+                        
+                        // Cập nhật lịch sử xem nếu tính năng user-features đã tải
+                        if (typeof updateWatchHistory === 'function') {
+                            updateWatchHistory(movieSlug);
+                        }
                     } else {
                         // Thử tìm trong episodes - cho phim lẻ có nhiều server
                         if (movie.episodes && Array.isArray(movie.episodes) && movie.episodes.length > 0) {
@@ -354,6 +496,11 @@ document.addEventListener('DOMContentLoaded', function() {
                                 
                                 if (episodeLink) {
                                     window.open(episodeLink, '_blank');
+                                    
+                                    // Cập nhật lịch sử xem nếu tính năng user-features đã tải
+                                    if (typeof updateWatchHistory === 'function') {
+                                        updateWatchHistory(movieSlug);
+                                    }
                                     return;
                                 }
                             }
@@ -367,6 +514,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Cập nhật tiêu đề trang
         document.title = `${movie.name} (${year}) - MovieLand`;
+        
+        // Thêm nút yêu thích nếu người dùng đã đăng nhập
+        if (typeof initMovieDetailsButtons === 'function') {
+            // Kiểm tra nếu nút yêu thích đã tồn tại
+            if (!document.querySelector('.favorite-button') && !document.querySelector('.favorite-button-container')) {
+                console.log('Gọi hàm khởi tạo nút yêu thích từ hiển thị chi tiết phim...');
+                setTimeout(() => {
+                    initMovieDetailsButtons();
+                }, 500);
+            } else {
+                console.log('Nút yêu thích đã tồn tại, không khởi tạo từ hiển thị chi tiết phim');
+            }
+        } else {
+            console.log('Chức năng yêu thích chưa được tải');
+        }
     }
     
     // Hiển thị danh sách các tập phim
@@ -580,38 +742,52 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     }
     
-    // Thêm xử lý sự kiện click cho các tập phim
+    // Thêm sự kiện click cho các tập phim
     function addEpisodeClickHandlers(movie) {
-        // Xử lý click chọn server
+        // Thêm sự kiện cho các tập phim
+        const episodeItems = document.querySelectorAll('.episode-item');
+        episodeItems.forEach(item => {
+            // Nếu đã là thẻ a có href, thêm sự kiện để cập nhật lịch sử xem
+            if (item.tagName === 'A' && item.getAttribute('href') && item.getAttribute('href') !== '#') {
+                item.addEventListener('click', function() {
+                    // Cập nhật lịch sử xem nếu tính năng user-features đã tải
+                    if (typeof updateWatchHistory === 'function') {
+                        const movieSlug = new URLSearchParams(window.location.search).get('slug');
+                        if (movieSlug) {
+                            updateWatchHistory(movieSlug);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Thêm sự kiện cho các tab server
         const serverTabs = document.querySelectorAll('.server-tab');
-        serverTabs.forEach(tab => {
+        serverTabs.forEach((tab, index) => {
             tab.addEventListener('click', function() {
                 // Xóa trạng thái active của tất cả các tab
                 serverTabs.forEach(t => t.classList.remove('active'));
                 
-                // Thêm trạng thái active cho tab được chọn
-                this.classList.add('active');
+                // Thêm trạng thái active cho tab được click
+                tab.classList.add('active');
                 
-                // Ẩn tất cả danh sách tập
+                // Ẩn tất cả các danh sách tập phim
                 const serverEpisodes = document.querySelectorAll('.server-episodes');
-                serverEpisodes.forEach(se => se.style.display = 'none');
+                serverEpisodes.forEach(ep => ep.style.display = 'none');
                 
-                // Hiển thị danh sách tập của server được chọn
-                const serverName = this.getAttribute('data-server');
-                const serverEpisodesList = document.getElementById(`server-${serverName.replace(/\s+/g, '-')}`);
-                if (serverEpisodesList) {
-                    serverEpisodesList.style.display = 'block';
+                // Hiển thị danh sách tập phim tương ứng
+                const serverName = tab.getAttribute('data-server');
+                if (serverName) {
+                    const targetServer = document.getElementById('server-' + serverName.replace(/\s+/g, '-'));
+                    if (targetServer) {
+                        targetServer.style.display = 'block';
+                    }
+                } else {
+                    // Nếu không có data-server, hiển thị theo index
+                    if (serverEpisodes[index]) {
+                        serverEpisodes[index].style.display = 'block';
+                    }
                 }
-            });
-        });
-        
-        // Thêm class active cho tập phim khi click
-        const episodeItems = document.querySelectorAll('.episode-item');
-        episodeItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // Đánh dấu tập đang được chọn
-                episodeItems.forEach(ep => ep.classList.remove('active'));
-                this.classList.add('active');
             });
         });
     }

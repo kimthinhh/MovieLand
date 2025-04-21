@@ -514,14 +514,19 @@ function updateUIAfterLogin(displayName) {
 function showUserMenu(e) {
     e.preventDefault();
     
-    // Kiểm tra xem menu đã tồn tại chưa
+    // Xóa menu cũ nếu tồn tại
     let userMenu = document.getElementById('user-menu');
-    
-    // Nếu đã tồn tại, toggle hiển thị
     if (userMenu) {
-        userMenu.style.display = userMenu.style.display === 'block' ? 'none' : 'block';
-        return;
+        userMenu.remove();
     }
+    
+    // Lấy thông tin người dùng hiện tại
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) return;
+    
+    // Lấy số lượng phim yêu thích và lịch sử xem
+    const favorites = JSON.parse(localStorage.getItem(`favorites_${currentUser.email}`) || '[]');
+    const history = JSON.parse(localStorage.getItem(`history_${currentUser.email}`) || '[]');
     
     // Tạo menu người dùng
     userMenu = document.createElement('div');
@@ -535,26 +540,29 @@ function showUserMenu(e) {
     userMenu.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     userMenu.style.zIndex = '1000';
     userMenu.style.minWidth = '200px';
+    userMenu.style.display = 'block';
     
     // Thêm các mục menu
     userMenu.innerHTML = `
         <div style="padding: 15px; border-bottom: 1px solid #eee;">
             <div style="font-weight: bold; color: #333; margin-bottom: 5px;">
-                ${JSON.parse(localStorage.getItem('currentUser')).displayName}
+                ${currentUser.displayName}
             </div>
             <div style="font-size: 12px; color: #777;">
-                ${JSON.parse(localStorage.getItem('currentUser')).email}
+                ${currentUser.email}
             </div>
         </div>
         <div style="padding: 10px;">
             <a href="#" id="profile-link" style="display: block; padding: 8px 10px; color: #333; text-decoration: none; border-radius: 3px;">
                 <i class="fas fa-user-circle" style="margin-right: 10px;"></i> Hồ sơ cá nhân
             </a>
-            <a href="#" id="favorites-link" style="display: block; padding: 8px 10px; color: #333; text-decoration: none; border-radius: 3px;">
-                <i class="fas fa-heart" style="margin-right: 10px;"></i> Phim yêu thích
+            <a href="#" id="favorites-link" style="display: flex; justify-content: space-between; padding: 8px 10px; color: #333; text-decoration: none; border-radius: 3px;">
+                <span><i class="fas fa-heart" style="margin-right: 10px; color: #e17c97;"></i> Phim yêu thích</span>
+                <span class="badge" style="background-color: #e17c97; color: white; border-radius: 10px; padding: 2px 6px; font-size: 11px;">${favorites.length}</span>
             </a>
-            <a href="#" id="history-link" style="display: block; padding: 8px 10px; color: #333; text-decoration: none; border-radius: 3px;">
-                <i class="fas fa-history" style="margin-right: 10px;"></i> Lịch sử xem
+            <a href="#" id="history-link" style="display: flex; justify-content: space-between; padding: 8px 10px; color: #333; text-decoration: none; border-radius: 3px;">
+                <span><i class="fas fa-history" style="margin-right: 10px;"></i> Lịch sử xem</span>
+                <span class="badge" style="background-color: #888; color: white; border-radius: 10px; padding: 2px 6px; font-size: 11px;">${history.length}</span>
             </a>
             <a href="#" id="logout-link" style="display: block; padding: 8px 10px; color: #ff3e79; text-decoration: none; border-radius: 3px;">
                 <i class="fas fa-sign-out-alt" style="margin-right: 10px;"></i> Đăng xuất
@@ -577,6 +585,33 @@ function showUserMenu(e) {
         });
     });
     
+    // Thêm sự kiện cho phim yêu thích và lịch sử xem
+    const favoritesLink = document.getElementById('favorites-link');
+    if (favoritesLink) {
+        favoritesLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof showFavoritesPage === 'function') {
+                showFavoritesPage();
+            } else {
+                alert('Tính năng này đang được phát triển');
+            }
+            userMenu.style.display = 'none';
+        });
+    }
+    
+    const historyLink = document.getElementById('history-link');
+    if (historyLink) {
+        historyLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (typeof showHistoryPage === 'function') {
+                showHistoryPage();
+            } else {
+                alert('Tính năng này đang được phát triển');
+            }
+            userMenu.style.display = 'none';
+        });
+    }
+    
     // Thêm sự kiện đăng xuất
     const logoutLink = document.getElementById('logout-link');
     logoutLink.addEventListener('click', function(e) {
@@ -584,6 +619,12 @@ function showUserMenu(e) {
         
         // Xóa thông tin người dùng đang đăng nhập
         localStorage.removeItem('currentUser');
+        
+        // Xóa container danh sách phim nếu đang hiển thị
+        const movieListContainer = document.getElementById('user-movie-list-container');
+        if (movieListContainer) {
+            movieListContainer.remove();
+        }
         
         // Cập nhật lại UI
         const loginBtn = document.getElementById('login-btn');
@@ -605,9 +646,11 @@ function showUserMenu(e) {
     });
     
     // Đóng menu khi click ra ngoài
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function closeUserMenu(e) {
         if (!userMenu.contains(e.target) && e.target !== document.getElementById('login-btn')) {
             userMenu.style.display = 'none';
+            // Gỡ bỏ sự kiện này sau khi menu đóng để tránh tích luỹ các event listeners
+            document.removeEventListener('click', closeUserMenu);
         }
     });
 }
